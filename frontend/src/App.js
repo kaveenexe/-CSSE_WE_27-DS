@@ -1,4 +1,3 @@
-import './App.css';
 import CustomerDashboard from './pages/customerDashboard';
 
 function App() {
