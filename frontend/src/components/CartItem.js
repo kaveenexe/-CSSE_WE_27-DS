@@ -81,11 +81,7 @@ const CartItem = ({ data, setCartItems, fetchCartItems }) => {
                     </div>
 
                     <div className="d-flex flex-row align-items-center">
-                        <button onClick={
-                            async () => {
-                                await increaseCount(_id);
-                            }
-                        }>
+                        <button >
                             <img src={arrow_up} alt="SVG logo image" style={{ width: "20px" }} />
                         </button>
                     </div>
@@ -97,11 +93,7 @@ const CartItem = ({ data, setCartItems, fetchCartItems }) => {
                     </div>
 
                     <div className="d-flex flex-row align-items-center">
-                        <button onClick={
-                            async () => {
-                                await decreaseCount(_id);
-                            }
-                        }>
+                        <button >
                             <img src={arrow_down} alt="SVG logo image" style={{ width: "20px" }} />
                         </button>
                     </div>
