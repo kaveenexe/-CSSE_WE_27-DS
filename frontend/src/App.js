@@ -1,11 +1,10 @@
-import Cart from "./components/Cart";
-import Review from "./components/Review/Review";
+import './App.css';
+import CustomerDashboard from './pages/customerDashboard';
 
 function App() {
   return (
     <div className="App">
-      <Cart/>
-      <Review/>
+      <CustomerDashboard />
     </div>
   );
 }
