@@ -1,0 +1,56 @@
+body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.ant-layout {
+  min-height: 100vh;
+  margin-top: 0px;
+}
+
+.logo {
+  height: 64px;
+  margin: 0px;
+  background: rgb(255, 255, 255);
+}
+
+.ant-menu {
+  padding: 15px;
+}
+
+.fs-4-user {
+  font-size: 1.7em;
+  cursor: pointer;
+}
+
+.fs-4-notification {
+  font-size: 1.8em;
+  cursor: pointer;
+}
+
+.fs-5-language {
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.search-bar {
+  margin-left: -850px;
+  margin-top: 10px;
+  height: fit-content;
+  display: flex;
+  background-color: #ebeff3;
+  border-radius: 9px;
+  gap: 3px;
+  padding: 0.1rem 1.5rem;
+}
