@@ -1,4 +1,4 @@
-import "../styles/admin.css"
+import "../styles/admin.css";
 import { Search } from "@mui/icons-material";
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -78,7 +78,7 @@ const App = () => {
           ]}
         />
       </Sider>
-      <Layout className="site-layout" >
+      <Layout className="site-layout">
         <Header
           className="d-flex justify-content-between ps-1 pe-4"
           style={{
@@ -93,7 +93,7 @@ const App = () => {
               onClick: () => setCollapsed(!collapsed),
             }
           )}
-          <div className="search-bar" >
+          <div className="search-bar">
             <InputBase placeholder="Search..." />
             <IconButton>
               <Search />
