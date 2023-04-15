@@ -16,20 +16,22 @@ body {
 
 .ant-layout {
   min-height: 100vh;
+  width: 100%;
   margin-top: 0px;
 }
 
 .logo {
   height: 64px;
   margin: 0px;
-  background: rgb(255, 255, 255);
+  background: rgb(60, 248, 3);
 }
 
 .ant-menu {
-  padding: 15px;
+  padding: 10px;
 }
 
 .fs-4-user {
+  padding-top: -100px;
   font-size: 1.7em;
   cursor: pointer;
 }
@@ -45,12 +47,17 @@ body {
 }
 
 .search-bar {
-  margin-left: -850px;
-  margin-top: 10px;
+  margin-left: 60px;
+  margin-top: -57px;
+  width: 300px;
   height: fit-content;
   display: flex;
   background-color: #ebeff3;
   border-radius: 9px;
   gap: 3px;
   padding: 0.1rem 1.5rem;
+}
+
+fs-4 {
+  font-size: large;
 }
