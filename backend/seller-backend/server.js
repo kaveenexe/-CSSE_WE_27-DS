@@ -23,6 +23,7 @@ mongoose.connect(URL,{
 
 })
 
+//Mongo db connection
 const connection  = mongoose.connection;
 connection.once("open",()=>{
     console.log("Mogodb Connection success")
