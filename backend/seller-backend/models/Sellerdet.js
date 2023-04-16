@@ -1,40 +1,26 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const app = express();
+const mongoose = require('mongoose');
 
-require("dotenv").config();
+const Schema = mongoose.Schema;
 
-
-const PORT = process.env.PORT || 8090;
-
-app.use(cors());
-app.use(bodyParser.json());
-
-const URL = process.env.MONGODB_URL;
-
-mongoose.connect(URL,{
-    //seCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    //useFindAndModify: false
-
+const SellerSchema = new Schema({
+    category: {
+        type : String,
+        required: true
+    },
+    title:{
+        type: String,
+        required: true
+    },
+    description:{
+        type: String,
+        required: true
+    },
+    price:{
+        type:Number,
+        required:true
+    }
 })
 
-const connection  = mongoose.connection;
-connection.once("open",()=>{
-    console.log("Mongodb Connection success")
-})
+const Sellerdet = mongoose.model("Sellerdet", SellerSchema);
 
-//route
-const sellerRouter = require("./routes/sellerdets.js");
-
-//give this name for postmon
-app.use("/seller", sellerRouter);
-
-
-app.listen(PORT, () => {
-    console.log(`Server is up and running on port number: ${PORT}`)
-})
+module.exports = Sellerdet;
