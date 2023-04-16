@@ -15,13 +15,6 @@ app.use(bodyParser.json());
 //Connect mongodb
 const url = process.env.MONGODB_URL;
 
-// mongoose.connect(url, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-//   useFindAndModify: false,
-// });
-
 //Create conncetion
 const connection = mongoose.connection;
 connection.once("open", () => {
