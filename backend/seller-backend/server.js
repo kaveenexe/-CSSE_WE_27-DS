@@ -29,6 +29,11 @@ connection.once("open",()=>{
     console.log("Mongodb Connection success")
 })
 
+//route
+const sellerRouter = require("./routes/sellerdets.js");
+
+//give this name for postmon
+app.use("/seller", sellerRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`)
