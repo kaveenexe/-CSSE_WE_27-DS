@@ -8,7 +8,7 @@ const app = express();
 require("dotenv").config();
 
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8090;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ mongoose.connect(URL,{
 //Mongo db connection
 const connection  = mongoose.connection;
 connection.once("open",()=>{
-    console.log("Mogodb Connection success")
+    console.log("Mongodb Connection success")
 })
 
 
