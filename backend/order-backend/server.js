@@ -1,37 +1,25 @@
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import helmet from "helmet";
-import morgan from "morgan";
-
-// import adminRoutes from "./routes/admin.js";
-// import generalRoutes from "./routes/general.js";
-
-/* CONFIGURATIONS */
-dotenv.config();
+require("dotenv").config();
+const express = require("express");
+const connectDB = require("./config/db");
 const app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+const orderRoutes = require("./routes/order-route");
+
+var cors = require("cors");
 app.use(cors());
 
+// Connect Database
+connectDB();
+
+// Initialize Middleware
+app.use(express.json({ extended: false }));
+app.get("/", (req, res) => res.send("Server up and running"));
+
 /* ROUTES */
-// app.use("/admin", adminRoutes);
-// app.use("/general", generalRoutes);
+app.use("/order", orderRoutes);
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 5001;
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server PORT : ${PORT}`));
-  })
-  .catch((error) => console.log(`${error} did not connect.`));
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
