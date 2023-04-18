@@ -10,12 +10,13 @@ import MainLayout from "./components/MainLayout";
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
+import Home from "./pages/home";
 
 function App() {
   return (
     <Router>
       <Routes>
-        Admin
+        {/* Admin routes files*/}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -23,9 +24,10 @@ function App() {
         </Route>
       </Routes>
 
-      {/* Import your route files here */}
+      {/* Set your route files here */}
       <Routes>
         <Route path="/profile" element={<CustomerDashboard />} />
+        <Route path="/Home" element={<Home />} />
       </Routes>
     </Router>
   );
