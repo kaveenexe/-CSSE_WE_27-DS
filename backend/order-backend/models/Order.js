@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema(
   {
-    orderID: {
-      type: String,
-      required: true,
-    },
     userID: {
       type: String,
       required: true,
@@ -16,21 +12,22 @@ const OrderSchema = new mongoose.Schema(
     },
     orderedDate: {
       type: Date,
-      default: Date.now,
       required: true,
+      default: Date.now,
     },
     quantity: {
       type: Number,
       required: true,
     },
-    total: {
+    totalPrice: {
       type: Number,
       required: true,
+      default: 0.0,
     },
     status: {
       type: String,
-      enum: ["processing", "confirmed"],
-      default: "processing",
+      enum: ["Processing", "Confirmed"],
+      default: "Processing",
     },
   },
   {
