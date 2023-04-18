@@ -33,3 +33,16 @@ exports.createOrder = (req, res) => {
         .json({ message: "Failed to add order", error: err.message })
     );
 };
+
+//Update order status
+exports.updateOrderStatus = async (req, res) => {
+  Order.findByIdAndUpdate(req.params.id, req.body)
+    .then((data) =>
+      res.json({ message: "Order status updated successfully...", data })
+    )
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ message: "Failed to update order status", error: err.message })
+    );
+};
