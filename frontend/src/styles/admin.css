@@ -47,9 +47,8 @@ body {
 }
 
 .search-bar {
-  margin-left: 60px;
-  margin-top: -57px;
-  width: 300px;
+  margin-left: -850px;
+  margin-top: 10px;
   height: fit-content;
   display: flex;
   background-color: #ebeff3;
