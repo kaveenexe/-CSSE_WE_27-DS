@@ -14,6 +14,7 @@ import Sellers from "./pages/Sellers-Admin";
 import Settings from "./pages/Settings-Admin";
 import CustomerDashboard from "./pages/customerDashboard";
 import Home from "./pages/home";
+import Product from "./pages/SellerDashboard";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/profile" element={<CustomerDashboard />} />
         <Route path="/Home" element={<Home />} />
+        <Route path="/seller-dashboard" element={<Product />} />
       </Routes>
     </Router>
   );
