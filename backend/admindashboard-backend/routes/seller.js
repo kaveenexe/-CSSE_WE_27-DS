@@ -1,15 +1,15 @@
 const router = require("express").Router();
 let User = require("../models/User");
 
-//Get all customers ({role: "customer"}) without ("-password") 
+//Get all sellers ({role: "seller"}) without ("-password")
 router.route("/").get((req, res) => {
-  User.find({ role: "customer" })
+  User.find({ role: "seller" })
     .select("-password")
     .then((User) => res.json(User))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//Create new customer
+//Create new seller
 router.route("/add").post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -18,7 +18,7 @@ router.route("/add").post((req, res) => {
   const password = req.body.password;
   const re_enter_pw = req.body.re_enter_pw;
 
-  const newCustomer = new User({
+  const newSeller = new User({
     name,
     email,
     phone,
@@ -27,16 +27,16 @@ router.route("/add").post((req, res) => {
     re_enter_pw,
   });
 
-  newCustomer
+  newSeller
     .save()
-    .then(() => res.json("Customer added successfully..."))
+    .then(() => res.json("Seller added successfully..."))
     .catch((err) => res.status(400).json("Error: " + err));
-} );
+});
 
-//Remove an existing registered customer
+//Remove an existing registered seller
 router.route("/remove/:id").delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Customer deleted successfully.."))
+    .then(() => res.json("Seller deleted successfully.."))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

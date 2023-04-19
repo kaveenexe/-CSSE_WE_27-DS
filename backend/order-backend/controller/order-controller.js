@@ -36,7 +36,7 @@ exports.createOrder = (req, res) => {
 
 //Update order status
 exports.updateOrderStatus = async (req, res) => {
-  Order.findByIdAndUpdate(req.params.id, req.body)
+  Order.findByIdAndUpdate(req.params.id, req.body.status)
     .then((data) =>
       res.json({ message: "Order status updated successfully...", data })
     )
@@ -44,5 +44,18 @@ exports.updateOrderStatus = async (req, res) => {
       res
         .status(400)
         .json({ message: "Failed to update order status", error: err.message })
+    );
+};
+
+//Remove order 
+exports.removeOrder = (req, res) => {
+  Order.findByIdAndRemove(req.params.id, req.body)
+    .then((data) =>
+      res.json({ message: "Order removed successfully...", data })
+    )
+    .catch((err) =>
+      res
+        .status(404)
+        .json({ message: "Order not found", error: err.message })
     );
 };
