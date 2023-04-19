@@ -4,6 +4,8 @@ const connectDB = require("./config/db");
 const app = express();
 
 const customerRoutes = require("./routes/customer");
+const sellerRoutes = require("./routes/seller");
+const settingsRoutes = require("./routes/settings");
 
 var cors = require("cors");
 app.use(cors());
@@ -17,6 +19,8 @@ app.get("/", (req, res) => res.send("Server up and running"));
 
 /* ROUTES */
 app.use("/customer", customerRoutes);
+app.use("/seller", sellerRoutes);
+app.use("/settings", settingsRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 8000;
