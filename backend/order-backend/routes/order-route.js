@@ -9,7 +9,7 @@ const {
 } = require("../controller/order-controller");
 
 router.get("/", getAllOrders);
-router.post( "/add", createOrder );
+router.post("/add", createOrder);
 router.put("/update/:id", updateOrderStatus);
 router.delete("/remove/:id", removeOrder);
 
