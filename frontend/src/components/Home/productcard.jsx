@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 
 export default function HomeProduct() {
   const products = data.products;
+
   return (
     <div className="product_cards">
       {products.map((product) => (
