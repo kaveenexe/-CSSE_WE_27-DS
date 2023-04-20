@@ -8,6 +8,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Logo from "../../images/LOGO.png";
 
 function NavigationBar() {
+
   return (
     <>
       {["lg"].map((expand) => (
