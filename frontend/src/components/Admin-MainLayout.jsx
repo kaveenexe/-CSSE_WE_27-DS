@@ -19,7 +19,8 @@ import { Outlet } from "react-router-dom";
 import { Layout, Menu, theme } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, InputBase } from "@mui/material";
+import {IconButton, InputBase} from "@mui/material";
+//import Logo from "../images/LOGO.png";
 
 const { Header, Sider, Content } = Layout;
 
