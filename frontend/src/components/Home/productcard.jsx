@@ -1,10 +1,25 @@
 import React from "react";
-import data from "../../data/product.json";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import Product from "../../components/Home/product";
+import { UilShoppingCart } from "@iconscout/react-unicons";
 
 export default function HomeProduct() {
-  const products = data.products;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:8003/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
 
   return (
     <div className="product_cards">
@@ -21,7 +36,25 @@ export default function HomeProduct() {
               <Card.Subtitle className="mb-2 text-muted">
                 LKR {product.price}
               </Card.Subtitle>
-              <Button variant="primary">Go somewhere</Button>
+              <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Product product={product}/>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Reviews
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                      <UilShoppingCart size="20" />
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+                <Button variant="primary" onClick={handleShow}>
+                  View Product
+                </Button>
             </Card.Body>
           </Card>
         </div>

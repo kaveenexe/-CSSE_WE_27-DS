@@ -14,6 +14,8 @@
 }
 
 .product_cards{
-  display: flex;
-  justify-content: space-around;
+  margin: 0 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
 }

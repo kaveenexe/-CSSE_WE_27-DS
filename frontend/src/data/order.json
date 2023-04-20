@@ -1,0 +1,21 @@
+{
+    "order":
+    [
+        {
+            "id":1,
+            "productName":"panadol 1",
+            "totalPrice":"100",
+            "status":"Processing",
+            "orderedDate":"2023-01-01",
+            "quantity": 1
+        },
+        {
+            "id":2,
+            "productName":"panadol 2",
+            "totalPrice":"200",
+            "status":"Confirmed",
+            "orderedDate":"2023-01-02",
+            "quantity": 2
+        }
+    ]
+}
