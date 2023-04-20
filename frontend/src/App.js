@@ -15,6 +15,10 @@ import Settings from "./pages/Settings-Admin";
 import CustomerDashboard from "./pages/customerDashboard";
 import Home from "./pages/home";
 import Product from "./pages/SellerDashboard";
+import BeautyProducts from "./pages/Catagories/HerbalBeautyProducts";
+import Other from "./pages/Catagories/Other";
+import HerbalProducts from "./pages/Catagories/HerbalHairProducts";
+import Tracking from "./pages/tracking";
 
 function App() {
   return (
@@ -36,6 +40,10 @@ function App() {
         <Route path="/profile" element={<CustomerDashboard />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/seller-dashboard" element={<Product />} />
+        <Route path="/herbal-beauty-products" element={<BeautyProducts />} />
+        <Route path="/other" element={<Other />} />
+        <Route path="/herbal-hair-products" element={<HerbalProducts />} />
+        <Route path="/tracking" element={<Tracking />} />
       </Routes>
     </Router>
   );

@@ -2,8 +2,8 @@ import Banner from "../components/custdb_banner";
 import Accordion from "react-bootstrap/Accordion";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import Form from "../components/CustomerSettings/form";
+import Order from "../components/CustomerOrders/order";
 
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -46,9 +46,8 @@ export default function CustomerDashboard() {
           </Card.Header>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              <Button href="/tracking">
-                track
-              </Button>
+            <Order />
+              
             </Card.Body>
           </Accordion.Collapse>
         </Card>
