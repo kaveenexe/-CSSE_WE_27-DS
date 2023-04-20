@@ -162,7 +162,7 @@ const Settings = () => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-            <button type="button" class="btn btn-light">
+            <button type="submit" class="btn btn-light">
               Save Changes
             </button>
           </Form>
