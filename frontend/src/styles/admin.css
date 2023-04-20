@@ -86,17 +86,3 @@ fs-4 {
   padding-top: 5px;
   font-family: 'Anuphan', sans-serif;
 }
-
-.fromLabel {
-  font-size: 15px;
-  font-weight: 450;
-}
-
-.btn {
-  background: #043f56;
-  color: aliceblue;
-  outline: #043f56;
-  margin-top: 8px;
-  width: 200px;
-  height: 50px;
-}
