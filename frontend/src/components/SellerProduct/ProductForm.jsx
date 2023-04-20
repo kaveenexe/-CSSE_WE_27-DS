@@ -9,7 +9,7 @@ export default function Addproduct() {
   const[title, setTitle] = useState("");
   const[description, setDescription] = useState("");
   const[price, setPrice] = useState("");
-  const[image, setImage] = useState("");
+  
 
 
   function sendData(e){
@@ -20,7 +20,7 @@ export default function Addproduct() {
       title,
       description,
       price,
-      image
+      /*image*/
      }
 
     axios.post("http://localhost:8003/seller/add",NewProduct).then(()=>{
@@ -36,12 +36,11 @@ export default function Addproduct() {
   return (
     <div>
       <Form onSubmit = {sendData}>
-        <Form.Select aria-label="Default select example">
+        <Form.Select value={category} onChange={e=>setCategory(e.target.value)} aria-label="Default select example">
           <option>Select category</option>
-          <option value="1">Beauty</option>
-          <option value="2">Oil</option>
-          <option value="3">Herbal hair products</option>
-          <option value="4">Other</option>
+          <option value="Herbal Beauty Products">Herbal Beauty Products</option>
+          <option value="Herbal Hair products">Herbal Hair products</option>
+          <option value="Other">Other</option>
         </Form.Select>
 
         <Form.Group className="mb-3">
