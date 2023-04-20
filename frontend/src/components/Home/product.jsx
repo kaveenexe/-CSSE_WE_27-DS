@@ -1,8 +1,5 @@
 import React from "react";
-import {  } from "../../pages/Catagories/HerbalBeautyProducts";
-import {  } from "../../pages/Catagories/HerbalHairProducts";
-import {  } from "../../pages/Catagories/Other";
-import {  } from "./productcard";
+
 export default function Product(props) {
   const {product} = props;
   return (

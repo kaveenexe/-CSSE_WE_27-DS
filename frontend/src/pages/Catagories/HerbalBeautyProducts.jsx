@@ -14,8 +14,13 @@ import Axios from "axios";
 export default function Beauty() {
   const [show, setShow] = useState(false);
 
+  const [selectedProduct, setSelectedProduct] = useState({});
+  
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (product) => {
+    setSelectedProduct(product);
+    setShow(true);
+  }
 
   const [products, setProducts] = useState([]);
 
@@ -65,7 +70,7 @@ export default function Beauty() {
                     <Modal.Title>Product Details</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <Product product={product}/>
+                    <Product product={selectedProduct}/>
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -76,7 +81,7 @@ export default function Beauty() {
                     </Button>
                   </Modal.Footer>
                 </Modal>
-                <Button variant="primary" onClick={handleShow}>
+                <Button variant="primary" onClick={() => handleShow(product)}>
                   View Product
                 </Button>
               </Card.Body>
