@@ -7,7 +7,6 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
-import MainLayout from "./components/MainLayout";
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
@@ -26,6 +25,7 @@ import Navbar from './Navbar';
 function App() {
 
   const [status, setStatus] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
   const token = localStorage.getItem('rfkey');
 
   const checkLogin = async () => {
@@ -50,7 +50,7 @@ function App() {
     checkLogin();
   }, []);
 
-  const [isSeller, setIsSeller] = useState(false);
+  
 
   const fetchRole = async () => {
     if (status == true) {
@@ -102,7 +102,7 @@ function App() {
     <Context.Provider>
       <BrowserRouter>
         <div>
-          <Navbar isSeller={isSeller} setStatus={setStatus} status={status} logOut={logOut} />
+          <Navbar isSeller={isSeller} setIsSeller={setIsSeller} setStatus={setStatus} status={status} logOut={logOut} />
           <Routes>
 
             <Route path='/' element={<Home />} />
