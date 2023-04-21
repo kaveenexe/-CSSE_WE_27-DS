@@ -16,11 +16,11 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    roles:{
-        type:[String],
-        //mongdo db allows only these three values to be added
-        enum: ["user", "admin", "super_admin"],
-        default: ["user"],
+    isCustomer:{
+        type: Boolean
+    },
+    isSeller:{
+        type: Boolean
     },
     isAdmin:{
         type: Boolean

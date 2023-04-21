@@ -10,6 +10,10 @@ const signUpBodyValidation = (body) => {
         userName: Joi.string().required().label("User Name"),
         email: Joi.string().email().required().label("Email"),
         password: passwordComplexity().required().label("Password"),
+        isCustomer: Joi.boolean().required().label("isCustomer"),
+        isSeller: Joi.boolean().required().label("isSeller"),
+        isAdmin: Joi.boolean().required().label("isAdmin"),
+        
     });
 
     //takes the body of object and validates it with schema.validate method

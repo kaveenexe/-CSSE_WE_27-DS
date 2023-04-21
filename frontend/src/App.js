@@ -10,6 +10,7 @@ import MainLayout from "./components/MainLayout";
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
 
