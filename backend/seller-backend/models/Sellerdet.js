@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const SellerSchema = new Schema({
     category: {
         type : String,
-        required: false
+        required: true
     },
     title:{
         type: String,
