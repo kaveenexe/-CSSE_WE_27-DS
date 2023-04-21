@@ -4,48 +4,145 @@ import {
   Routes,
   Route,
   Navigate,
+  BrowserRouter,
 } from "react-router-dom";
 
-import MainLayout from "./components/Admin-MainLayout";
-import { Dashboard } from "./pages/Admin-Dashboard";
-import Orders from "./pages/Orders-Admin";
-import Customers from "./pages/Customers-Admin";
-import Sellers from "./pages/Sellers-Admin";
-import Settings from "./pages/Settings-Admin";
+import MainLayout from "./components/MainLayout";
+import { Dashboard } from "./pages/Dashboard";
+import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
-import Home from "./pages/home";
-import Product from "./pages/SellerDashboard";
-import BeautyProducts from "./pages/Catagories/HerbalBeautyProducts";
-import Other from "./pages/Catagories/Other";
-import HerbalProducts from "./pages/Catagories/HerbalHairProducts";
-import Tracking from "./pages/tracking";
+import Register from "./pages/Register";
+import MyAccount from "./pages/MyAccount";
+import Login from "./pages/Login";
+import { useEffect, useState } from "react";
+import Protected from "./Protected";
+import axios from 'axios';
+import RoleProtected from "./RoleProtected";
+import AddFood from "./pages/AddFood";
+import Home from "./pages/Home";
+import { Context } from "./Context";
+import Navbar from './Navbar';
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        {/* Admin routes files*/}
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/vendors" element={<Sellers />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
-      </Routes>
 
-      {/* Set your route files here */}
-      <Routes>
-        <Route path="/profile" element={<CustomerDashboard />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/seller-dashboard" element={<Product />} />
-        <Route path="/herbal-beauty-products" element={<BeautyProducts />} />
-        <Route path="/other" element={<Other />} />
-        <Route path="/herbal-hair-products" element={<HerbalProducts />} />
-        <Route path="/tracking" element={<Tracking />} />
-      </Routes>
-    </Router>
+  const [status, setStatus] = useState(false);
+  const token = localStorage.getItem('rfkey');
+
+  const checkLogin = async () => {
+    const user = {
+      refreshToken: token,
+    };
+
+
+    const { data: response } = await axios.post('http://localhost:8080/api/refreshToken', user)
+    console.log(response.error);
+    if (response.error === false) {
+      setStatus(true);
+      console.log("setted true");
+    }
+    else {
+      setStatus(false);
+      console.log("setted false");
+    }
+  }
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  const [isSeller, setIsSeller] = useState(false);
+
+  const fetchRole = async () => {
+    if (status == true) {
+      try {
+        const { data: response } = await axios.get(`http://localhost:8080/api/users/getId/${localStorage.getItem("username")}`);
+        setIsSeller(response.isSeller);
+        console.log(response);
+
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchRole();
+  }, []);
+
+
+  const logOut = async () => {
+
+
+    await fetch("http://localhost:8080/api/refreshToken", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        refreshToken: localStorage.getItem("rfkey"),
+      })
+    }).then((res) => {
+      if (res.ok) {
+        localStorage.setItem("rfkey", "");
+        console.log("logged out successfully");
+        window.location.reload(false);
+        setStatus(false);
+        console.log(status);
+      }
+      else {
+        console.log("Cannot logout");
+
+      }
+
+    })
+    localStorage.removeItem("isLogged");
+  };
+
+  return (
+    <Context.Provider>
+      <BrowserRouter>
+        <div>
+          <Navbar isSeller={isSeller} setStatus={setStatus} status={status} logOut={logOut} />
+          <Routes>
+
+            <Route path='/' element={<Home />} />
+
+
+
+
+            <Route path='/cart/:id'
+              element={
+                <Protected isLoggedIn={status}>
+                  <Dashboard />
+                </Protected>
+              }
+
+            />
+
+            <Route path='/add-food'
+              element={
+                <RoleProtected isSeller={isSeller}>
+                  <AddFood />
+                </RoleProtected>
+              }
+            />
+
+            <Route path='/my-account'
+              element={
+                <Protected isLoggedIn={status}>
+                  <MyAccount isSeller={isSeller} />
+                </Protected>
+              }
+            />
+
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+
+          </Routes>
+        </div>
+
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 
