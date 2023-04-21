@@ -75,7 +75,6 @@ export default function Addproduct() {
         <Form.Control type="file" />
       </Form.Group>
       <Button type = "submit">Confirm</Button>
-
       </Form>
     </div>
   );
