@@ -4,9 +4,31 @@ import axios from 'axios';
 import '../index.css';
 import { useNavigate } from 'react-router-dom';
 
-const GridLayout = ({homeFoodData, homeFoodLoading}) => {
+const GridLayout = () => {
 
   const navigate = useNavigate();
+
+  const [homeFoodData, setHomeFoodData] = useState([])
+  const [homeFoodLoading, setHomeFoodLoading] = useState(true);
+  
+
+  const token = localStorage.getItem('rfkey');
+
+  const fetchFoodData = async () => {
+    setHomeFoodLoading(true);
+    try {
+      const { data: response } = await axios.get('http://localhost:8090/api/foods');
+      setHomeFoodData(response);
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+    setHomeFoodLoading(false);
+  }
+
+  useEffect(() => {
+    fetchFoodData();
+  }, []);
 
 
   const handleClick = (e) => {

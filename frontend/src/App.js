@@ -7,7 +7,7 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
-import MainLayout from "./components/MainLayout";
+
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
@@ -119,13 +119,15 @@ function App() {
 
             />
 
-            <Route path='/add-food'
-              element={
-                <RoleProtected isSeller={isSeller}>
-                  <AddFood />
-                </RoleProtected>
-              }
-            />
+            
+              <Route path='/add-food' element={
+                <AddFood/>
+              }/>
+                
+              
+      
+
+            
 
             <Route path='/my-account'
               element={
