@@ -44,7 +44,7 @@ router.get('/isAdmin/:id', async (req, res) => {
     const username = usernames.filter(e => e.userName == id);
     if(username){
         res.status(200).json({
-            isAdmin: username[0].isAdmin, 
+            isSeller: username[0].isSeller, 
         });
     }
     

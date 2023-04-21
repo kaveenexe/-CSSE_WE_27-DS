@@ -10,7 +10,7 @@ import axios from 'axios';
 const API_BASE = "http://localhost:8080";
 
 
-const MyAccount = ({ isAdmin }) => {
+const MyAccount = ({ isSeller }) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
 
@@ -24,6 +24,10 @@ const MyAccount = ({ isAdmin }) => {
     useEffect(() => {
         loadUserData();
     }, [email]);
+
+
+
+    
 
 
     const logOut = async () => {
@@ -43,7 +47,7 @@ const MyAccount = ({ isAdmin }) => {
     }
 
     const loadUserData = async () => {
-        const data = await fetch(API_BASE + "/api/get-user-details", {
+        const data = await fetch("http://localhost:8080/api/get-user-details", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -64,7 +68,7 @@ const MyAccount = ({ isAdmin }) => {
     }
 
     const fetchPaymentDetails = async () => {
-        if (isAdmin) {
+        if (isSeller) {
             try {
                 const { data: response } = await axios.get(`http://localhost:8080/api/payment/payments`);
                 setOrders(response);
@@ -83,7 +87,7 @@ const MyAccount = ({ isAdmin }) => {
     return (
         <div className='container'>
             <div className='row'>Howdy </div>
-            {(isAdmin ?
+            {(isSeller ?
                 (<div>
 
                     {orders.map(item => (

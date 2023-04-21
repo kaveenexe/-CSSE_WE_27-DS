@@ -23,7 +23,7 @@ import { IconButton, InputBase } from "@mui/material";
 
 const { Header, Sider, Content } = Layout;
 
-const App = () => {
+const App = ({status, setStatus}) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -39,11 +39,33 @@ const App = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key === "signout") {
-            } else {
-              navigate(key);
-            }
-          }}
+            if (key === "logout") {
+
+              fetch("http://localhost:8080/api/refreshToken", {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  refreshToken: localStorage.getItem("rfkey"),
+                })
+              }).then((res) => {
+                if (res.ok) {
+                  localStorage.setItem("rfkey", "");
+                  console.log("logged out successfully");
+                  window.location.reload(false);
+                  setStatus(false);
+                  console.log(status);
+                }
+                else {
+                  console.log("Cannot logout");
+          
+                }
+          
+              })
+              localStorage.removeItem("isLogged");
+
+              }}}
           items={[
             {
               key: "",
@@ -71,10 +93,26 @@ const App = () => {
               label: "Settings",
             },
             {
-              key: "signout",
-              icon: <AiOutlineLogout className="fs-4" />,
-              label: "Logout",
+              key: "register",
+              icon: <AiOutlineSetting className="fs-4" />,
+              label: "Register",
             },
+            
+            {
+              key: "my-account",
+              icon: <AiOutlineSetting className="fs-4" />,
+              label: "My Account",
+            },
+            {
+              key: "login",
+              icon: <AiOutlineSetting className="fs-4" />,
+              label: "Login",
+            },
+            {
+              key: "logout",
+              icon: <AiOutlineLogout className="fs-4" />,
+              label: "Log Out",
+            }
           ]}
         />
       </Sider>
