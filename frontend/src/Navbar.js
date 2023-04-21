@@ -12,6 +12,7 @@ const Navbar = ({isSeller, setStatus, status, logOut}) => {
 
     const navigate = useNavigate();
     
+    
 
 
     return (
