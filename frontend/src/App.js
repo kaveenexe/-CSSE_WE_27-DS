@@ -22,11 +22,36 @@ import AddFood from "./pages/AddFood";
 import Home from "./pages/Home";
 import { Context } from "./Context";
 import Navbar from './Navbar';
+import SingleFood from "./pages/SingleFood";
+import Swal from "sweetalert2";
 
 function App() {
 
   const [status, setStatus] = useState(false);
   const token = localStorage.getItem('rfkey');
+  const [cartFoodLoading, setCartFoodLoading] = useState(true);
+  const [cartFoodData, setCartFoodData] = useState([])
+  const [quantity, setQuantity] = useState("")
+  const [data, setData] = useState([])
+  const [cartCount, setCartCount] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [isSeller, setIsSeller] = useState(false);
+  const [cartTotal, setCartTotal] = useState("");
+
+  const getCartTotal = async () => {
+    try {
+      const { data: response } = await axios.get(`http://localhost:8090/api/cart/user/getTotal/${localStorage.getItem("username")}`);
+      setCartTotal(response);
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+
+  }
+
+  useEffect(() => {
+    getCartTotal();
+  }, []);
 
   const checkLogin = async () => {
     const user = {
@@ -50,7 +75,45 @@ function App() {
     checkLogin();
   }, []);
 
-  const [isSeller, setIsSeller] = useState(false);
+
+
+  
+
+
+
+  const fetchCartFoodData = async () => {
+    setCartFoodLoading(true);
+    try {
+      const { data: response } = await axios.get(`http://localhost:8080/api/cart/user/${localStorage.getItem('username')}`);
+      setCartFoodData(response);
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+    setCartFoodLoading(false);
+  }
+
+  useEffect(() => {
+    fetchCartFoodData();
+  }, []);
+
+  useEffect(() => {
+    fetchCartFoodData();
+  }, [setCartFoodData]);
+
+  const fetchCartCount = async () => {
+    try {
+      const { data: response } = await axios.get(`http://localhost:8080/api/cart/users/${localStorage.getItem('username')}`);
+      setCartCount(response);
+
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchCartCount();
+  }, [cartFoodData]);
 
   const fetchRole = async () => {
     if (status == true) {
@@ -107,7 +170,7 @@ function App() {
 
             <Route path='/' element={<Home />} />
 
-
+            <Route path='/:id' element={<SingleFood fetchCartFoodData={fetchCartFoodData} fetchCartCount={fetchCartCount} setLoading={setLoading} setData={setData} data={data}/>} />
 
 
             <Route path='/cart/:id'
