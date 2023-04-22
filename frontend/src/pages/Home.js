@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import GridLayout from '../components/GridLayout'
 
-const Home = ({homeFoodData, homeFoodLoading}) => {
+const Home = () => {
   return (
     <div>
-      Home
+      <GridLayout/>
       
     </div>
   )
