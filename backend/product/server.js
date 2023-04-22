@@ -10,7 +10,6 @@ const app = express();
 
 //allows us access environment variables like dotenv files
 config();
-
 dbConnect();
 
 

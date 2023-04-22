@@ -7,6 +7,7 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
+
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import CustomerDashboard from "./pages/customerDashboard";
@@ -27,7 +28,6 @@ import Swal from "sweetalert2";
 function App() {
 
   const [status, setStatus] = useState(false);
-  const [isSeller, setIsSeller] = useState(false);
   const token = localStorage.getItem('rfkey');
   const [cartFoodLoading, setCartFoodLoading] = useState(true);
   const [cartFoodData, setCartFoodData] = useState([])
@@ -110,7 +110,6 @@ function App() {
     fetchCartCount();
   }, [cartFoodData]);
 
-
   const fetchRole = async () => {
     if (status == true) {
       try {
@@ -161,7 +160,7 @@ function App() {
     <Context.Provider>
       <BrowserRouter>
         <div>
-          <Navbar isSeller={isSeller} setIsSeller={setIsSeller} setStatus={setStatus} status={status} logOut={logOut} />
+          <Navbar isSeller={isSeller} setStatus={setStatus} status={status} logOut={logOut} />
           <Routes>
 
             <Route path='/' element={<Home />} />
