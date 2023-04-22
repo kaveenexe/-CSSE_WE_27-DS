@@ -35,7 +35,6 @@ function App() {
   const [data, setData] = useState([])
   const [cartCount, setCartCount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isSeller, setIsSeller] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
 
   const getCartTotal = async () => {
