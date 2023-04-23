@@ -36,6 +36,10 @@ router.post("/", postCreateCartItem);
  */
 router.put("/:id", putUpdateCartItem);
 
+router.get("/user/getTotal/:id", getUserCartItems);
+
+ 
+
 router.put("/increase/:id", putIncreaseCartCount);
 
 

@@ -22,6 +22,18 @@ exports.postCreateCartItem = (req, res) => {
         );
 };
 
+// exports.postCreateCartItem = async(req, res) => {
+//     let sum = 0;
+//     const id = req.params.id;
+//     const cartItems = await Cart.find();
+//     const cartItem = cartItems.filter(e => e.userId == id );
+//     cartItem.forEach(e => {
+//         sum += parseFloat(e.total)
+//     })
+//     res.json(sum);
+// };
+
+
 
 exports.getUserCartItems = async (req, res) => {
     const id = req.params.userId;
@@ -63,6 +75,7 @@ exports.putUpdateCartItem = (req, res) => {
                 .json({ message: "Failed to update cart item", error: err.message })
         );
 };
+
 
 exports.deleteCartItem = (req, res) => {
     Cart.findByIdAndRemove(req.params.id, req.body)

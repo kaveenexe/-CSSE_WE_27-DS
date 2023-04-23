@@ -17,7 +17,7 @@ const GridLayout = () => {
   const fetchFoodData = async () => {
     setHomeFoodLoading(true);
     try {
-      const { data: response } = await axios.get('http://localhost:8090/api/foods');
+      const { data: response } = await axios.get('http://localhost:9020/api/foods');
       setHomeFoodData(response);
       console.log(response);
     } catch (error) {

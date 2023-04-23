@@ -4,7 +4,7 @@ import FormData from 'form-data';
 
 import { useState, } from "react";
 
-const API_BASE = "http://localhost:8090";
+const API_BASE = "http://localhost:9020";
 
 const AddFood = () => {
 
@@ -38,7 +38,7 @@ const AddFood = () => {
 
         console.log(formData.image);
 
-        await axios.post('http://localhost:8090/api/upload', formData)
+        await axios.post('http://localhost:9020/api/upload', formData)
             .then(res => {
                 console.log(formData);
             })
