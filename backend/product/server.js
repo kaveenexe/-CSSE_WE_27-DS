@@ -23,5 +23,5 @@ app.use(cors());
 
 app.use("/api", imageRoutes);
 
-const port = process.env.PORT || 8090;
+const port = process.env.PORT || 9020;
 app.listen(port, ()=> console.log(`Listening on port ${port}...`));

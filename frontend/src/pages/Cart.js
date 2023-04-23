@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import FormData from 'form-data';
 
 
-const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, addToCart, getCartTotal, cartTotal, orderData, setOrderData }) => {
+const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, getCartTotal, cartTotal, orderData, setOrderData }) => {
   const navigate = useNavigate();
-  const baseURL = `http://localhost:9010/api/cart/${localStorage.getItem('username')}`;
 
   const redirectEditFood = async (id) => {
     navigate(`/update/${id}`);
@@ -23,6 +22,12 @@ const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, ad
 
     navigate(`/payment/`);
   }
+
+
+  useEffect(() => {
+    fetchCartFoodData();
+  }, []);
+
   return (
     <div className='row'>
       {cartFoodLoading && <div>Loading</div>}

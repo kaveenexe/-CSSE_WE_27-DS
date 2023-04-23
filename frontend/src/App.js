@@ -24,6 +24,8 @@ import { Context } from "./Context";
 import Navbar from './Navbar';
 import SingleFood from "./pages/SingleFood";
 import Swal from "sweetalert2";
+import Cart from './pages/Cart';
+import UpdateFood from "./pages/UpdateFood";
 
 function App() {
 
@@ -36,10 +38,38 @@ function App() {
   const [cartCount, setCartCount] = useState("");
   const [loading, setLoading] = useState(true);
   const [cartTotal, setCartTotal] = useState("");
+  const [orderData, setOrderData] = useState([]);
+
+
+
+  const deleteItem = async (id) => {
+
+    await Swal.fire({
+      title: 'Do you want to remove this from?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Remove',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Removed Item!', '', 'success')
+        const data = fetch(`http://localhost:9010/api/cart/${id}`, { method: "DELETE" })
+          .then(res => res.json());
+        setCartFoodData(cartFoodData => cartFoodData.filter(cartFoodItem => cartFoodItem._id !== data._id))
+
+
+      } else if (result.isDenied) {
+        Swal.fire('Item is not removed', '', 'info')
+      }
+    })
+    getCartTotal();
+    fetchCartFoodData();
+  }
 
   const getCartTotal = async () => {
     try {
-      const { data: response } = await axios.get(`http://localhost:8090/api/cart/user/getTotal/${localStorage.getItem("username")}`);
+      const { data: response } = await axios.get(`http://localhost:9010/api/cart/user/getTotal/${localStorage.getItem("username")}`);
       setCartTotal(response);
       console.log(response);
     } catch (error) {
@@ -78,7 +108,7 @@ function App() {
   const fetchCartFoodData = async () => {
     setCartFoodLoading(true);
     try {
-      const { data: response } = await axios.get(`http://localhost:8080/api/cart/user/${localStorage.getItem('username')}`);
+      const { data: response } = await axios.get(`http://localhost:9010/api/cart/${localStorage.getItem('username')}`);
       setCartFoodData(response);
       console.log(response);
     } catch (error) {
@@ -97,7 +127,7 @@ function App() {
 
   const fetchCartCount = async () => {
     try {
-      const { data: response } = await axios.get(`http://localhost:8080/api/cart/users/${localStorage.getItem('username')}`);
+      const { data: response } = await axios.get(`http://localhost:9010/api/cart/users/${localStorage.getItem('username')}`);
       setCartCount(response);
 
     } catch (error) {
@@ -125,6 +155,8 @@ function App() {
   useEffect(() => {
     fetchRole();
   }, []);
+
+
 
 
   const logOut = async () => {
@@ -164,27 +196,29 @@ function App() {
 
             <Route path='/' element={<Home />} />
 
-            <Route path='/:id' element={<SingleFood fetchCartFoodData={fetchCartFoodData} fetchCartCount={fetchCartCount} setLoading={setLoading} setData={setData} data={data}/>} />
-
-
             <Route path='/cart/:id'
               element={
-                <Protected isLoggedIn={status}>
-                  <Dashboard />
-                </Protected>
+                //<Protected isLoggedIn={status}>
+                <Cart deleteItem={deleteItem} fetchCartFoodData={fetchCartFoodData} cartFoodLoading={cartFoodLoading} cartFoodData={cartFoodData} getCartTotal={getCartTotal} cartTotal={cartTotal} orderData={orderData} setOrderData={setOrderData} />
+                //</Protected>
               }
 
             />
 
-            
-              <Route path='/add-food' element={
-                <AddFood/>
-              }/>
-                
-              
-      
+            <Route path='/:id' element={<SingleFood fetchCartFoodData={fetchCartFoodData} fetchCartCount={fetchCartCount} setLoading={setLoading} setData={setData} data={data} />} />
 
-            
+
+
+
+            <Route path='/add-food' element={
+              <AddFood />
+            } />
+
+
+
+
+
+
 
             <Route path='/my-account'
               element={
@@ -193,6 +227,8 @@ function App() {
                 </Protected>
               }
             />
+
+            <Route path='/update/:id' element={<UpdateFood />} />
 
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
