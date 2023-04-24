@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import FormData from 'form-data';
+import Form from "react-bootstrap/Form";
 
 import { useState, } from "react";
 
@@ -13,6 +14,7 @@ const AddFood = () => {
             name:'',
             price:'',
             description:'',
+            category:'',
             image:'',
 
         }
@@ -58,17 +60,9 @@ const AddFood = () => {
                         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
 
-                                <div class="form-outline mb-4">
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        onChange={handlePhoto}
-                                    />
-
-                                </div>
 
                                 <div class="form-outline mb-4">
-                                    <input 
+                                    <Form.Control 
                                         placeholder="Enter Food Name"
                                         name="name"
                                         value={newFood.name}
@@ -78,7 +72,7 @@ const AddFood = () => {
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input
+                                    <Form.Control
                                         placeholder="Enter Food Price"
                                         name="price"
                                         value={newFood.price}
@@ -88,13 +82,32 @@ const AddFood = () => {
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input
+                                    <Form.Control
                                         placeholder="Enter Food Description"
                                         name="description"
                                         value={newFood.description}
                                         onChange={handleChange}
                                     />
                                     <label class="form-label" for="form3Example3">Enter food description</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                <Form.Select value={newFood.category} onChange={e=>newFood.category=e.target.value} aria-label="Default select example">
+                                    <option>Select category</option>
+                                    <option value="Herbal Beauty Products">Herbal Beauty Products</option>
+                                    <option value="Herbal Hair products">Herbal Hair products</option>
+                                    <option value="Other">Other</option>
+                                </Form.Select>
+                                </div>
+
+                                
+                                <div class="form-outline mb-4">
+                                    <Form.Control
+                                        type="file"
+                                        name="image"
+                                        onChange={handlePhoto}
+                                    />
+
                                 </div>
 
                                 <div class="text-center text-lg-start mt-4 pt-2">

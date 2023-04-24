@@ -12,6 +12,9 @@ const foodSchema = new Schema({
     description:{
         type: String
     },
+    category:{
+        type: String
+    },
     image:{
         type: String
     }

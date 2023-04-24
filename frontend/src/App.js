@@ -24,6 +24,7 @@ import Navbar from './Navbar';
 import SingleFood from "./pages/SingleFood";
 import Swal from "sweetalert2";
 
+
 function App() {
 
   const [status, setStatus] = useState(false);
@@ -35,7 +36,6 @@ function App() {
   const [data, setData] = useState([])
   const [cartCount, setCartCount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isSeller, setIsSeller] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
 
   const getCartTotal = async () => {
@@ -184,9 +184,6 @@ function App() {
               }/>
                 
               
-      
-
-            
 
             <Route path='/my-account'
               element={
