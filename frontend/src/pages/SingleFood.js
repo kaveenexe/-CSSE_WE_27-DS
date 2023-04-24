@@ -7,12 +7,12 @@ import Button from '@mui/material/Button';
 
 
 import TextField from '@mui/material/TextField';
-const API_BASE = "http://localhost:8090";
+const API_BASE = "http://localhost:9010";
 
 
 const SingleFood = ({ fetchCartFoodData, fetchCartCount, setLoading, setData, data }) => {
     let { id } = useParams();
-    const baseURL = `http://localhost:8090/api/${id}`;
+    const baseURL = `http://localhost:9020/api/${id}`;
     const [quantity, setQuantity] = useState(1)
     const [singleFood, setSingleFood] = useState([]);
     const [total, setTotal] = useState("");
@@ -37,44 +37,47 @@ const SingleFood = ({ fetchCartFoodData, fetchCartCount, setLoading, setData, da
     const calculateTotal = ({ target }) => {
         setQuantity(target.value);
         setTotal(target.value * singleFood.price);
+        
     }
 
     const addToCart = async () => {
 
         Swal.fire({
-          title: 'Are you sure want to add this to the cart?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, add it!'
+            title: 'Are you sure want to add this to the cart?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, add it!'
         }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              'Added!',
-              'success'
-            )
-            const cartItem = {
-              userId: localStorage.getItem('username'),
-              foodId: data._id,
-              foodName: data.name,
-              foodImage: data.image,
-              quantity: quantity,
-              total: total
-            };
-    
-            const headers = {
-              'Authorization': 'Bearer my-token',
-              'My-Custom-Header': 'foobar'
-            };
-            axios.post('http://localhost:8090/api/cart/add-item', cartItem, { headers });
-            //setCartFoodData(...cartFoodData, cartItem);
-            //fetchCartFoodData();
-            //getCartTotal();
-          }
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Added!',
+                    'success'
+                )
+                const cartItem = {
+                    foodName: singleFood.name,
+                    foodId: singleFood._id,
+                    userId: localStorage.getItem('username'),
+                    quantity: quantity,
+                    unit_price: singleFood.price,
+                    total: total,
+                    image: singleFood.image
+
+                };
+
+                const headers = {
+                    'Authorization': 'Bearer my-token',
+                    'My-Custom-Header': 'foobar'
+                };
+                axios.post('http://localhost:9010/api/cart/', cartItem, { headers });
+                console.log(cartItem);
+                fetchCartFoodData();
+                console.log("Total is"+ quantity)
+            }
         });
-    
-      }
+
+    }
 
 
     return (
@@ -93,7 +96,7 @@ const SingleFood = ({ fetchCartFoodData, fetchCartCount, setLoading, setData, da
 
                     <div className='row'>
                         <TextField id="outlined-basic" label="Quantity" variant="outlined" onChange={calculateTotal}
-                        value={quantity}
+                            value={quantity}
                         />
                     </div>
                     <div className='row'>
