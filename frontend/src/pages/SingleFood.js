@@ -1,123 +1,130 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2'
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import React from "react";
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import Button from "@mui/material/Button";
 
-
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
 
+const SingleFood = ({
+  fetchCartFoodData,
+  fetchCartCount,
+  setLoading,
+  setData,
+  data,
+}) => {
+  let { id } = useParams();
+  const baseURL = `http://localhost:9020/api/${id}`;
+  const [quantity, setQuantity] = useState(1);
+  const [singleFood, setSingleFood] = useState([]);
+  const [total, setTotal] = useState("");
 
-const SingleFood = ({ fetchCartFoodData, fetchCartCount, setLoading, setData, data }) => {
-    let { id } = useParams();
-    const baseURL = `http://localhost:9020/api/${id}`;
-    const [quantity, setQuantity] = useState(1)
-    const [singleFood, setSingleFood] = useState([]);
-    const [total, setTotal] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const { data: response } = await axios.get(baseURL);
+        setSingleFood(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+      setLoading(false);
+    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const { data: response } = await axios.get(baseURL);
-                setSingleFood(response);
+    fetchData();
+  }, []);
 
-            } catch (error) {
-                console.error(error.message);
-            }
-            setLoading(false);
-        }
+  const calculateTotal = ({ target }) => {
+    setQuantity(target.value);
+    setTotal(target.value * singleFood.price);
+  };
 
-        fetchData();
+  const addToCart = async () => {
+    Swal.fire({
+      title: "Are you sure want to add this to the cart?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Added!", "success");
+        const cartItem = {
+          foodName: singleFood.name,
+          foodId: singleFood._id,
+          userId: localStorage.getItem("username"),
+          quantity: quantity,
+          unit_price: singleFood.price,
+          total: total,
+          image: singleFood.image,
+        };
 
-    }, []);
+        const headers = {
+          Authorization: "Bearer my-token",
+          "My-Custom-Header": "foobar",
+        };
+        axios.post("http://localhost:9010/api/cart/", cartItem, { headers });
+        console.log(cartItem);
+        fetchCartFoodData();
+        console.log("Total is" + quantity);
+      }
+    });
+  };
 
-    const calculateTotal = ({ target }) => {
-        setQuantity(target.value);
-        setTotal(target.value * singleFood.price);
-        
-    }
+  return (
+    <div
+      className="container"
+      style={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        marginTop: "4rem",
+      }}
+    >
+      <div className="image">
+        <img
+          style={{
+            width: "90%",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+          src={singleFood.image}
+          alt="food"
+        />
+      </div>
 
-    const addToCart = async () => {
-
-        Swal.fire({
-            title: 'Are you sure want to add this to the cart?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, add it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Added!',
-                    'success'
-                )
-                const cartItem = {
-                    foodName: singleFood.name,
-                    foodId: singleFood._id,
-                    userId: localStorage.getItem('username'),
-                    quantity: quantity,
-                    unit_price: singleFood.price,
-                    total: total,
-                    image: singleFood.image
-
-                };
-
-                const headers = {
-                    'Authorization': 'Bearer my-token',
-                    'My-Custom-Header': 'foobar'
-                };
-                axios.post('http://localhost:9010/api/cart/', cartItem, { headers });
-                console.log(cartItem);
-                fetchCartFoodData();
-                console.log("Total is"+ quantity)
-            }
-        });
-
-    }
-
-
-    return (
-        <div className='container'>
-
-            <div className='row'>
-                <div className='col-8' >
-                    <h1><center>{singleFood.name}</center></h1>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <img src={singleFood.image} style={{ width: '50%', height: '50%' }} />
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>{singleFood.description}</div>
-                </div>
-
-                <div className='col-4' style={{ paddingTop: '20%' }}>
-
-                    <div className='row'>
-                        <TextField id="outlined-basic" label="Quantity" variant="outlined" onChange={calculateTotal}
-                            value={quantity}
-                        />
-                    </div>
-                    <div className='row'>
-                        <div className='col'>Total</div>
-                        <div className='col'>{quantity * singleFood.price}</div>
-                    </div>
-                    <div className='row'>
-                        <Button variant="contained" onClick={async () => {
-                            await addToCart();
-
-
-
-
-                        }}>Add to Cart</Button>
-                    </div>
-                </div>
-            </div>
-
-
+      <div className="content">
+        <div>
+          <h1>{singleFood.name}</h1>
         </div>
-    )
-}
+        <div>
+          <h6>Description</h6>
+          <hr />
+          <p>{singleFood.description}</p>
+        </div>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="Quantity"
+            variant="outlined"
+            onChange={calculateTotal}
+            value={quantity}
+          />
+        </div>
 
-export default SingleFood
+        <div style={{}}>
+          <br />
+          <p style={{ fontWeight: 600 }}>
+            Total
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Rs. {quantity * singleFood.price}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SingleFood;
