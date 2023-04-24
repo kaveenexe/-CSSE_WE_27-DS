@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import Cart from "./pages/Cart";
 import UpdateFood from "./pages/UpdateFood";
 
+
 function App() {
   const [status, setStatus] = useState(false);
   const token = localStorage.getItem("rfkey");
@@ -35,7 +36,6 @@ function App() {
   const [data, setData] = useState([]);
   const [cartCount, setCartCount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isSeller, setIsSeller] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
   const [orderData, setOrderData] = useState([]);
 
@@ -218,6 +218,14 @@ function App() {
               }
             />
 
+
+            
+              <Route path='/add-food' element={
+                <AddFood/>
+              }/>
+                
+              
+
             <Route
               path="/:id"
               element={
@@ -232,6 +240,7 @@ function App() {
             />
 
             <Route path="/add-food" element={<AddFood />} />
+
 
             <Route
               path="/my-account"
