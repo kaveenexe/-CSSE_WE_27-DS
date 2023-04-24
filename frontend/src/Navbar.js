@@ -20,7 +20,7 @@ const NavBar = ({ isSeller, setStatus, status, logOut }) => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand
-          href="#home"
+          href="/"
           style={{ color: "#25D828", fontWeight: 600 }}
         >
           <img
