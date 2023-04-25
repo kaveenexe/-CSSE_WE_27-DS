@@ -18,7 +18,7 @@ import Protected from "./Protected";
 import axios from "axios";
 import RoleProtected from "./RoleProtected";
 import AddFood from "./pages/AddFood";
-import Home from "./pages/Home";
+import Home from "./pages/home.jsx";
 import { Context } from "./Context";
 import Navbar from "./Navbar";
 import SingleFood from "./pages/SingleFood";
@@ -232,7 +232,7 @@ function App() {
               
 
             <Route
-              path="/:id"
+              path="/product/:id"
               element={
                 <SingleFood
                   fetchCartFoodData={fetchCartFoodData}
