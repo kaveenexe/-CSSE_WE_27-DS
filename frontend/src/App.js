@@ -44,8 +44,6 @@ function App() {
   const [isSeller, setIsSeller] = useState();
   const [isCustomer, setIsCustomer] = useState(true);
 
-
-
   const deleteItem = async (id) => {
     await Swal.fire({
       title: "Do you want to remove this from?",
@@ -74,7 +72,6 @@ function App() {
   const getCartTotal = async () => {
     try {
       const { data: response } = await axios.get(
-
         `http://localhost:9010/api/cart/total/${localStorage.getItem(
           "username"
         )}`
@@ -232,26 +229,20 @@ function App() {
               }
             />
 
+            <Route path="/add-food" element={<AddFood />} />
 
+            <Route
+              path="/payment"
+              element={
+                <Payment cartTotal={cartTotal} cartFoodData={cartFoodData} />
+              }
+            />
 
-            <Route path='/add-food' element={
-              <AddFood />
-            } />
+            {/* Categories */}
 
-
-            <Route path='/payment' element={
-              <Payment cartTotal={cartTotal} cartFoodData={cartFoodData} />
-            } />
-
-            <Route path='/herbal-beauty' element={
-              <Catagory1  />
-            } />
-            <Route path='/herbal-hair' element={
-              <Catagory2  />
-            } />
-            <Route path='/other' element={
-              <Catagory3  />
-            } />
+            <Route path="/herbal-beauty" element={<Catagory1 />} />
+            <Route path="/herbal-hair" element={<Catagory2 />} />
+            <Route path="/other" element={<Catagory3 />} />
 
             <Route
               path="/product/:id"
@@ -267,7 +258,6 @@ function App() {
             />
 
             <Route path="/add-food" element={<AddFood />} />
-
 
             <Route
               path="/my-account"
