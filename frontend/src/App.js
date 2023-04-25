@@ -263,9 +263,9 @@ function App() {
             <Route
               path="/my-account"
               element={
-                
+                <Protected isLoggedIn={status}>
                   <MyAccount isCustomer={isCustomer} />
-                
+                </Protected>
               }
             />
 
