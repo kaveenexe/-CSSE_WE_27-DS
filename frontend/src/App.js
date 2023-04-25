@@ -40,6 +40,7 @@ function App() {
   const [isSeller, setIsSeller] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
   const [orderData, setOrderData] = useState([]);
+  const [isSeller, setIsSeller] = useState();
 
 
 
@@ -70,7 +71,15 @@ function App() {
 
   const getCartTotal = async () => {
     try {
+<<<<<<< Updated upstream
       const { data: response } = await axios.get(`http://localhost:9010/api/cart/user/getTotal/${localStorage.getItem("username")}`);
+=======
+      const { data: response } = await axios.get(
+        `http://localhost:9010/api/cart/total/${localStorage.getItem(
+          "username"
+        )}`
+      );
+>>>>>>> Stashed changes
       setCartTotal(response);
       console.log(response);
     } catch (error) {

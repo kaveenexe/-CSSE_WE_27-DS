@@ -42,6 +42,20 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
+exports.getUserCartTotal = async (req, res) => {
+    let sum = 0;
+    const id = req.params.id;
+    const cartItems = await Cart.find();
+    const cartItem = cartItems.filter(e => e.userId == id );
+    cartItem.forEach(e => {
+        sum += parseFloat(e.total)
+    })
+    res.json(sum);
+}
+
+    
+
+
 exports.putIncreaseCartCount = async(req, res) => {
 
     const id = req.params.id;

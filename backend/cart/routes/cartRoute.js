@@ -8,7 +8,8 @@ const {
     postCreateCartItem,
     putIncreaseCartCount,
     putUpdateCartItem,
-    deleteCartItem
+    deleteCartItem,
+    getUserCartTotal
 } = require("../controllers/cartController");
 
 /**
@@ -38,6 +39,7 @@ router.put("/:id", putUpdateCartItem);
 
 router.get("/user/getTotal/:id", getUserCartItems);
 
+router.get("/total/:id", getUserCartTotal);
  
 
 router.put("/increase/:id", putIncreaseCartCount);
