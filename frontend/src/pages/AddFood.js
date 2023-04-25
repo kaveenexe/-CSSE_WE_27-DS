@@ -61,7 +61,7 @@ const AddFood = () => {
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
 
                                 
-                            <div class="form-outline mb-4">
+                            <div class="form-outline">
                                 <Form.Select value={newFood.category} onChange={e=>newFood.category=e.target.value} aria-label="Default select example">
                                     <option>Select category</option>
                                     <option value="Herbal Beauty Products">Herbal Beauty Products</option>
@@ -71,7 +71,7 @@ const AddFood = () => {
                                 </div>
 
 
-                                <div class="form-outline mb-4">
+                                <div class="form-outline ">
                                 <label class="form-label" for="form3Example3">Product Name</label>
 
                                     <Form.Control 
@@ -82,7 +82,7 @@ const AddFood = () => {
                                     />
                                 </div>
 
-                                <div class="form-outline mb-4">
+                                <div class="form-outlinex">
                                 <label class="form-label" for="form3Example3">Price</label>
                                     <Form.Control
                                         placeholder="Enter Price"
