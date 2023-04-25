@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import Cart from "./pages/Cart";
 import UpdateFood from "./pages/UpdateFood";
 import Payment from "./pages/Payment";
+import Sellerdash from "./pages/SellerDashboard";
 
 
 function App() {
@@ -266,6 +267,15 @@ function App() {
                 <Protected isLoggedIn={status}>
                   <MyAccount isCustomer={isCustomer} />
                 </Protected>
+              }
+            />
+
+            <Route
+              path="/seller-profile"
+              element={
+                
+                  <Sellerdash isCustomer={isSeller} />
+               
               }
             />
 
