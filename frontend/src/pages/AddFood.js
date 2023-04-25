@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import FormData from 'form-data';
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import { useState, } from "react";
 
@@ -55,15 +56,16 @@ const AddFood = () => {
 
             <div class="container-fluid h-custom h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100s h-100">
-                    <div class="col-md-9 col-lg-6 col-xl-5">
+                    <div class="col-sm-9 col-md-6 col-lg-8 col-xl-12">
 
                         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
 
                                 
                             <div class="form-outline">
+                            <label class="form-label" for="form3Example3">Category</label>
                                 <Form.Select value={newFood.category} onChange={e=>newFood.category=e.target.value} aria-label="Default select example">
-                                    <option>Select category</option>
+                                    <option>Select Category</option>
                                     <option value="Herbal Beauty Products">Herbal Beauty Products</option>
                                     <option value="Herbal Hair products">Herbal Hair products</option>
                                     <option value="Other">Other</option>
@@ -106,6 +108,7 @@ const AddFood = () => {
 
                                 
                                 <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3">Add Image</label>
                                     <Form.Control
                                         type="file"
                                         name="image"
@@ -118,6 +121,7 @@ const AddFood = () => {
 
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <input type="submit" />
+                                   
                                 </div>
 
                             </form>
