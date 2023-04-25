@@ -263,8 +263,9 @@ function App() {
             <Route
               path="/my-account"
               element={
+                
                   <MyAccount isCustomer={isCustomer} />
-               
+                
               }
             />
 
