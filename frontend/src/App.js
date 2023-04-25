@@ -41,6 +41,7 @@ function App() {
   const [orderData, setOrderData] = useState([]);
 
   const [isSeller, setIsSeller] = useState();
+  const [isCustomer, setIsCustomer] = useState(true);
 
 
 
@@ -262,9 +263,8 @@ function App() {
             <Route
               path="/my-account"
               element={
-                <Protected isLoggedIn={status}>
-                  <MyAccount isSeller={isSeller} />
-                </Protected>
+                  <MyAccount isCustomer={isCustomer} />
+               
               }
             />
 
