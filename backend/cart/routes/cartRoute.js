@@ -9,7 +9,8 @@ const {
     putIncreaseCartCount,
     putUpdateCartItem,
     deleteCartItem,
-    getUserCartTotal
+    getUserCartTotal,
+    getUserCartCount
 } = require("../controllers/cartController");
 
 /**
@@ -29,6 +30,8 @@ router.get("/", getAllCartItems);
 router.get("/:userId", getUserCartItems);
 
 router.post("/", postCreateCartItem);
+
+router.get("/users/:id", getUserCartCount);
 
 /**
  * @route PUT api/todo/:id

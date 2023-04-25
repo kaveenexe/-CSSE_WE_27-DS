@@ -40,7 +40,7 @@ function App() {
   const [cartTotal, setCartTotal] = useState("");
   const [orderData, setOrderData] = useState([]);
 
-  const [isSeller, setIsSeller] = useState();  
+  const [isSeller, setIsSeller] = useState();
 
 
 
@@ -198,6 +198,9 @@ function App() {
       <BrowserRouter>
         <div>
           <Navbar
+            fetchCartCount={fetchCartCount}
+            cartCount={cartCount}
+            setCartCount={setCartCount}
             isSeller={isSeller}
             setStatus={setStatus}
             status={status}
@@ -211,6 +214,9 @@ function App() {
               element={
                 //<Protected isLoggedIn={status}>
                 <Cart
+                  cartCount={cartCount}
+                  setCartCount={setCartCount}
+                  fetchCartCount={fetchCartCount}
                   deleteItem={deleteItem}
                   fetchCartFoodData={fetchCartFoodData}
                   cartFoodLoading={cartFoodLoading}
@@ -225,17 +231,17 @@ function App() {
             />
 
 
-            
-              <Route path='/add-food' element={
-                <AddFood/>
-              }/>
-                
 
-                <Route path='/payment' element={
-                <Payment cartTotal={cartTotal} cartFoodData={cartFoodData}/>
-              }/>
+            <Route path='/add-food' element={
+              <AddFood />
+            } />
 
-              
+
+            <Route path='/payment' element={
+              <Payment cartTotal={cartTotal} cartFoodData={cartFoodData} />
+            } />
+
+
 
             <Route
               path="/product/:id"

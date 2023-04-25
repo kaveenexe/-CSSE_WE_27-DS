@@ -13,8 +13,12 @@ const { Link } = require("react-router-dom");
 
 const API_BASE = "http://localhost:8080";
 
-const NavBar = ({ isSeller, setStatus, status, logOut }) => {
+const NavBar = ({ cartCount, setCartCount, fetchCartCount, isSeller, setStatus, status, logOut }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCartCount();
+  }, [cartCount]);
 
   return (
     <Navbar bg="light" expand="lg">
@@ -82,7 +86,7 @@ const NavBar = ({ isSeller, setStatus, status, logOut }) => {
               Login
             </Link>
           ) : (
-            <span>
+            <span className="d-flex justify-content-center align-items-center">
               <Link
                 to="/login"
                 style={{
@@ -94,9 +98,19 @@ const NavBar = ({ isSeller, setStatus, status, logOut }) => {
               >
                 Logout
               </Link>
+              <Link to={`/cart/${localStorage.getItem('username')}`}>
+                <Badge badgeContent={cartCount} color="primary">
+                    <MailIcon color="action" />
+                </Badge>
+            </Link>
+              
             </span>
           )}
+
+          
         </nav>
+
+
       </Container>
     </Navbar>
   );
