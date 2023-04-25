@@ -39,7 +39,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [cartTotal, setCartTotal] = useState("");
   const [orderData, setOrderData] = useState([]);
+
   const [isSeller, setIsSeller] = useState();  
+
+
 
   const deleteItem = async (id) => {
     await Swal.fire({
@@ -69,6 +72,7 @@ function App() {
   const getCartTotal = async () => {
     try {
       const { data: response } = await axios.get(
+
         `http://localhost:9010/api/cart/total/${localStorage.getItem(
           "username"
         )}`
@@ -226,9 +230,11 @@ function App() {
                 <AddFood/>
               }/>
                 
+
                 <Route path='/payment' element={
                 <Payment cartTotal={cartTotal} cartFoodData={cartFoodData}/>
               }/>
+
               
 
             <Route
