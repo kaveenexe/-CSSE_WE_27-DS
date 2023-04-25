@@ -25,9 +25,14 @@ import Swal from "sweetalert2";
 import Cart from "./pages/Cart";
 import UpdateFood from "./pages/UpdateFood";
 import Payment from "./pages/Payment";
+
 import Catagory1 from "./pages/Catagories/HerbalBeautyProducts";
 import Catagory2 from "./pages/Catagories/HerbalHairProducts";
 import Catagory3 from "./pages/Catagories/Other";
+
+import Sellerdash from "./pages/SellerDashboard";
+
+
 
 function App() {
   const [status, setStatus] = useState(false);
@@ -275,6 +280,15 @@ function App() {
                 <Protected isLoggedIn={status}>
                   <MyAccount isCustomer={isCustomer} />
                 </Protected>
+              }
+            />
+
+            <Route
+              path="/seller-profile"
+              element={
+                
+                  <Sellerdash isCustomer={isSeller} />
+               
               }
             />
 
