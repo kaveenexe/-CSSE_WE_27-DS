@@ -39,10 +39,10 @@ const Footer = () => (
           <h5 className="text-uppercase ">Products</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="/herbal-beauty-products" style={{textDecoration: "none", color: "black"}}>Herbal Beauty Products</a>
+              <a href="/herbal-beauty" style={{textDecoration: "none", color: "black"}}>Herbal Beauty Products</a>
             </li>
             <li>
-              <a href="/herbal-hair-products" style={{textDecoration: "none", color: "black"}}>Herbal Hair Products</a>
+              <a href="/herbal-hair" style={{textDecoration: "none", color: "black"}}>Herbal Hair Products</a>
             </li>
             <li>
               <a href="/other" style={{textDecoration: "none", color: "black"}}>Other</a>
