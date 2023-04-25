@@ -52,6 +52,7 @@ export default function HomeProduct() {
                 variant="top"
                 style={{ height: "200px" }}
               />
+              
               <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text
