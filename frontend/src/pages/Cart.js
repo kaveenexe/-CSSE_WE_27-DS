@@ -59,7 +59,7 @@ const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, ge
 
       )}
       <div className='row' style={{ position: 'fixed', marginBottom: '200px', marginRight: '200px', marginLeft: '200px', top: '400px' }}>
-        <div className='col-sm d-flex align-items-center justify-content-center'>{cartTotal}</div>
+        <div className='col-sm d-flex align-items-center justify-content-center'><div className="h3">Cart Total: Rs.{cartTotal}</div></div>
         <div className='col-sm'>
         <Button onClick={() => redirectCheckout()} variant="contained" style={{ margin: '10px', width: '150px' }}>Proceed to checkout</Button>
         </div>

@@ -50,7 +50,7 @@ const UpdateFood = () => {
                     'Authorization': 'Bearer my-token',
                     'My-Custom-Header': 'foobar'
                 };
-                axios.post(`http://localhost:9020/api/cart/${data._id}`, cartItem, { headers });
+                axios.post(`http://localhost:9010/api/cart/${data._id}`, cartItem, { headers });
 
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
