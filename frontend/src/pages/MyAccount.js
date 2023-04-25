@@ -85,63 +85,61 @@ const MyAccount = ({ isCustomer }) => {
 
   return (
     <div className="">
-      
-        <Banner />
-        <div class="card" style={{margin: "3rem 20rem"}}>
-          {/* accordion 01 */}
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>DASHBOARD</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Hello, {userDetails.username}. From your account dashboard, you
-                can easily check & view your recent orders, manage your shipping
-                and billing addresses and edit your password and account
-                details.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+      <Banner />
+      <div class="card" style={{ margin: "3rem 20rem" }}>
+        {/* accordion 01 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>DASHBOARD</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Hello, {userDetails.username}. From your account dashboard, you
+              can easily check & view your recent orders, manage your shipping
+              and billing addresses and edit your password and account details.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-          {/* accordion 02 */}
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>ORDERS</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+        {/* accordion 02 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>ORDERS</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-          {/* accordion 03 */}
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel4a-content"
-              id="panel4a-header"
-            >
-              <Typography>SETTINGS</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                <Form>
+        {/* accordion 03 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4a-content"
+            id="panel4a-header"
+          >
+            <Typography>SETTINGS</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <Form>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="5" controlId="formBasicUsername">
                     <Form.Label>User Name</Form.Label>
                     <Form.Control
-                      type="email"
+                      type="text"
                       placeholder={userDetails.username}
                     />
                     <Form.Text className="text-muted">
@@ -158,14 +156,13 @@ const MyAccount = ({ isCustomer }) => {
                       Enter your E-mail to update.
                     </Form.Text>
                   </Form.Group>
-                  </Row>
-                  <Button type="submit">Update</Button>
-                </Form>
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        </div>
-      
+                </Row>
+                <Button type="submit">Update</Button>
+              </Form>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </div>
   );
 };

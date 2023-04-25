@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
+import Button from "react-bootstrap/Button";
 
 import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
@@ -123,7 +123,7 @@ const SingleFood = ({
           </p>
         </div>
 
-        <button onClick={addToCart}>Add to cart</button>
+        <Button onClick={addToCart}>Add to cart</Button>
       </div>
     </div>
   );

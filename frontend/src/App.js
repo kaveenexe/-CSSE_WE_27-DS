@@ -9,7 +9,6 @@ import {
 
 import { Dashboard } from "./pages/Dashboard";
 import Customers from "./pages/Customers";
-import CustomerDashboard from "./pages/customerDashboard";
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
@@ -26,7 +25,9 @@ import Swal from "sweetalert2";
 import Cart from "./pages/Cart";
 import UpdateFood from "./pages/UpdateFood";
 import Payment from "./pages/Payment";
-
+import Catagory1 from "./pages/Catagories/HerbalBeautyProducts";
+import Catagory2 from "./pages/Catagories/HerbalHairProducts";
+import Catagory3 from "./pages/Catagories/Other";
 
 function App() {
   const [status, setStatus] = useState(false);
@@ -242,7 +243,15 @@ function App() {
               <Payment cartTotal={cartTotal} cartFoodData={cartFoodData} />
             } />
 
-
+            <Route path='/herbal-beauty' element={
+              <Catagory1  />
+            } />
+            <Route path='/herbal-hair' element={
+              <Catagory2  />
+            } />
+            <Route path='/other' element={
+              <Catagory3  />
+            } />
 
             <Route
               path="/product/:id"
