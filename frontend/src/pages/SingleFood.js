@@ -122,6 +122,8 @@ const SingleFood = ({
             Rs. {quantity * singleFood.price}
           </p>
         </div>
+
+        <button onClick={addToCart}>Add to cart</button>
       </div>
     </div>
   );
