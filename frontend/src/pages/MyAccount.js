@@ -10,24 +10,17 @@ import axios from 'axios';
 const API_BASE = "http://localhost:8080";
 
 
-const MyAccount = ({ isSeller }) => {
+const MyAccount = ({ isCustomer }) => {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
 
     const key = localStorage.getItem('rfkey');
     const uid = localStorage.getItem('username');
 
+    const [userDetails, setUserDetails] = useState({});
+
     const [orders, setOrders] = useState([]);
-
-
-
-    useEffect(() => {
-        loadUserData();
-    }, [email]);
-
-
-
-    
 
 
     const logOut = async () => {
@@ -46,69 +39,70 @@ const MyAccount = ({ isSeller }) => {
         });
     }
 
+    
+
     const loadUserData = async () => {
-        const data = await fetch("http://localhost:8080/api/get-user-details", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        axios({
+            method: 'post',
+            url: "http://localhost:8080/api/get-user-details",
+            data: {
                 username: uid,
-            })
-        }).then((res) => {
-            return res.json();
-        }).then(async (data) => {
-            setEmail(data.email);
+            }
+          }).then((data) => {
+            console.log(data.data);
+            setUserDetails(data.data);
         });
     }
 
-    const viewCart = () => {
-        const username = localStorage.getItem('username');
-        navigate(`/cart/${username}`);
-    }
-
-    const fetchPaymentDetails = async () => {
-        if (isSeller) {
-            try {
-                const { data: response } = await axios.get(`http://localhost:8080/api/payment/payments`);
-                setOrders(response);
-                console.log(response);
-
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
-    }
-
     useEffect(() => {
-        fetchPaymentDetails();
+        loadUserData();
     }, []);
 
-    return (
-        <div className='container'>
-            <div className='row'>Howdy </div>
-            {(isSeller ?
-                (<div>
 
-                    {orders.map(item => (
-                        <div class="card" >
-                        <div class="card-body">
-                         
-                          <p class="card-text">Customer Name: {item.name}</p>
-                       <p class="card-text">Billing Address: {item.billingAddress}</p>
-                       <p class="card-text">Ordered Items</p>
-                       {item.foodId.map((item2, i)=>(
-                                                      <div>{i+1} {item2.foodName}</div>
-                                                  ))}
-                          <a href="#" class="btn btn-primary">Confirm Order</a>
-                        </div>
-                      </div>
-                    ))}
+const viewCart = () => {
+    const username = localStorage.getItem('username');
+    navigate(`/cart/${username}`);
+}
 
-                </div>) :
-                (<div>User</div>))}
+// const fetchPaymentDetails = async () => {
+//     if (isSeller) {
+//         try {
+//             const { data: response } = await axios.get(`http://localhost:8080/api/payment/payments`);
+//             setOrders(response);
+//             console.log(response);
+
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
+// }
+
+// useEffect(() => {
+//     fetchPaymentDetails();
+// }, []);
+
+return (
+    <div className='container'>
+        <div className='row'>Howdy </div>
+        <div>
+
+           
+                <div class="card" >
+                    <div class="card-body">
+
+                        <p class="card-text">Name: {userDetails.username}</p>
+                        <p class="card-text">Email: {userDetails.email}</p>
+                        <p class="card-text">IsCustomer: {userDetails.isCustomer}</p>
+                        <p class="card-text">IsSeller: {userDetails.isSeller}</p>
+                        <p class="card-text">IsAdmin: {userDetails.isAdmin}</p>
+
+                    </div>
+                </div>
+            
+
         </div>
-    )
+    </div>
+)
 }
 
 export default MyAccount

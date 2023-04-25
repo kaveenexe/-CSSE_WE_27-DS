@@ -68,6 +68,9 @@ router.post("/get-user-details", async (req, res) => {
             error: false,
             username: user.userName,
             email: user.email,
+            isCustomer: user.isCustomer,
+            isSeller: user.isSeller,
+            isAdmin: user.isAdmin,
             messaage: "User is there",
         });
     }
