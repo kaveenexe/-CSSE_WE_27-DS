@@ -6,8 +6,12 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import Product from "../../components/Home/product";
 import { UilShoppingCart } from "@iconscout/react-unicons";
+import { useNavigate } from 'react-router-dom';
 
 export default function HomeProduct() {
+  const navigate = useNavigate();
+  
+  
   const [show, setShow] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
   
@@ -22,7 +26,7 @@ export default function HomeProduct() {
  
 
   useEffect(() => {
-    Axios.get("http://localhost:8003/products").then((response) => {
+    Axios.get("http://localhost:9020/api/foods").then((response) => {
       setProducts(response.data);
     });
   }, []);
@@ -32,7 +36,7 @@ export default function HomeProduct() {
       {products.map((product) => (
         <div key={product._id}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img src={product.image} variant="top" style={{width:'400px', height:'200px'}}/>
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text
@@ -61,12 +65,12 @@ export default function HomeProduct() {
                   <Button variant="secondary" onClick={handleClose}>
                     Reviews
                   </Button>
-                  <Button variant="primary" onClick={handleClose}>
+                  <Button variant="primary" onClick={ ()=>navigate(`/product/${product._id}`)}>
                     <UilShoppingCart size="20" />
                   </Button>
                 </Modal.Footer>
               </Modal>
-              <Button variant="primary" onClick={() => handleShow(product)}>
+              <Button variant="primary" onClick={ ()=>navigate(`/product/${product._id}`)}>
                 View Product
               </Button>
             </Card.Body>
