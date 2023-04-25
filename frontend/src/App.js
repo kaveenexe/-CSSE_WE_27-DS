@@ -38,6 +38,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [cartTotal, setCartTotal] = useState("");
   const [orderData, setOrderData] = useState([]);
+  const [isSeller, setIsSeller] = useState(false);
 
   const deleteItem = async (id) => {
     await Swal.fire({
