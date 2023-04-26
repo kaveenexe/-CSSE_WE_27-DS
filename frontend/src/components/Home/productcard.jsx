@@ -13,13 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function HomeProduct() {
   const navigate = useNavigate();
-
-  const [query, setQuery] = useState("");
-  console.log(query);
-
   const [show, setShow] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
-
   const handleClose = () => setShow(false);
   const handleShow = (product) => {
     setSelectedProduct(product);
@@ -34,17 +29,24 @@ export default function HomeProduct() {
     });
   }, []);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div>
       <div className="col-2" style={{ marginLeft: "3rem" }}>
-        <Form>
-          <InputGroup className="mb-3">
-            <FormControl placeholder="Search" />
-          </InputGroup>
-        </Form>
+        <input
+          type="text"
+          className="form-control"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search product"
+          style={{ padding: "0.7rem", margin: "2rem 0" }}
+        />
       </div>
       <div className="product_cards">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product._id}>
             <Card style={{ width: "18rem" }}>
               <Card.Img
@@ -52,7 +54,7 @@ export default function HomeProduct() {
                 variant="top"
                 style={{ height: "200px" }}
               />
-              
+
               <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text
