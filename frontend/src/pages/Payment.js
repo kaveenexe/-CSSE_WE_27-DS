@@ -6,6 +6,31 @@ import Button from '@mui/material/Button';
 const Payment = ({ cartTotal, cartFoodData }) => {
 
 
+
+
+
+
+
+    const pay = () => {
+        const order =
+        {
+            userID: localStorage.getItem("username"),
+            transactionID: Math.random().toString(36).substring(2, 8),
+            quantity: 1,
+            totalPrice: cartTotal
+        }
+        
+
+        const headers = {
+            Authorization: "Bearer my-token",
+            "My-Custom-Header": "foobar",
+          };
+          axios.post("http://localhost:8000/order/add", order, { headers });
+          removeCartItems();
+
+        
+    }
+
     const [newPayment, setNewPayment] = useState(
         {
             userId: localStorage.getItem("username"),
@@ -32,7 +57,7 @@ const Payment = ({ cartTotal, cartFoodData }) => {
 
 
 
-        await axios.post('http://localhost:8080/api/payment/add-order', newPayment)
+        await axios.post('http://localhost:8000/order/add', newPayment)
             .then(res => {
                 console.log(newPayment);
                 removeCartItems();
@@ -43,11 +68,11 @@ const Payment = ({ cartTotal, cartFoodData }) => {
 
     }
 
-    const removeCartItems = async()=>{
-        
+    const removeCartItems = async () => {
+
         await axios.put(`http://localhost:8080/api/cart/user/setConfirmed/${localStorage.getItem('username')}`)
             .then(res => {
-                
+
             })
             .catch(err => {
                 console.log(err);
@@ -70,7 +95,7 @@ const Payment = ({ cartTotal, cartFoodData }) => {
                             <p class="dis mb-3">Complete your purchase by providing your payment details</p>
                         </div>
                         <form onSubmit={handleSubmit}>
-                            
+
                             <div>
                                 <p class="dis fw-bold mb-2">Card details</p>
                                 <div class="d-flex align-items-center justify-content-between card-atm border rounded">
@@ -154,8 +179,8 @@ const Payment = ({ cartTotal, cartFoodData }) => {
                                             <div className='col-sm'></div>
                                             <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal}</div>
                                         </div>
-                                        <input type="submit" class="btn btn-primary mt-2" value={`Pay ${cartTotal}`} />
-
+                                        <div>{`Pay ${cartTotal}`}</div>
+                                        <button onClick={pay}>Pay</button>
                                     </div>
                                 </div>
                             </div>
