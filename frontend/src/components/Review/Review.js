@@ -4,7 +4,7 @@ import "./Review.css"
 
 const Review = () => {
   return (
-    <div class="container">
+    <div class="container" style={{marginTop: "4rem"}}>
     <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
         <h4 class="font-cond-l fg-accent lts-md mgb-10" contenteditable="false">Not Yet Convinced?</h4>
         <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>

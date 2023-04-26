@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-
+import Review from "../components/Review/Review";
 import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
 
@@ -75,56 +75,59 @@ const SingleFood = ({
   };
 
   return (
-    <div
-      className="container"
-      style={{
-        display: "flex",
-        justifyContent: "space-evenly",
-        marginTop: "4rem",
-      }}
-    >
-      <div className="image">
-        <img
-          style={{
-            width: "90%",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-          src={singleFood.image}
-          alt="food"
-        />
-      </div>
-
-      <div className="content">
-        <div>
-          <h1>{singleFood.name}</h1>
-        </div>
-        <div>
-          <h6>Description</h6>
-          <hr />
-          <p>{singleFood.description}</p>
-        </div>
-        <div>
-          <TextField
-            id="outlined-basic"
-            label="Quantity"
-            variant="outlined"
-            onChange={calculateTotal}
-            value={quantity}
+    <div className="container">
+      <div
+        className="main"
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          marginTop: "4rem",
+        }}
+      >
+        <div className="image">
+          <img
+            style={{
+              width: "90%",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+            src={singleFood.image}
+            alt="food"
           />
         </div>
 
-        <div style={{}}>
-          <br />
-          <p style={{ fontWeight: 600 }}>
-            Total
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Rs. {quantity * singleFood.price}
-          </p>
-        </div>
+        <div className="content">
+          <div>
+            <h1>{singleFood.name}</h1>
+          </div>
+          <div>
+            <h6>Description</h6>
+            <hr />
+            <p>{singleFood.description}</p>
+          </div>
+          <div>
+            <TextField
+              id="outlined-basic"
+              label="Quantity"
+              variant="outlined"
+              onChange={calculateTotal}
+              value={quantity}
+            />
+          </div>
 
-        <Button onClick={addToCart}>Add to cart</Button>
+          <div style={{}}>
+            <br />
+            <p style={{ fontWeight: 600 }}>
+              Total
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Rs. {quantity * singleFood.price}
+            </p>
+          </div>
+
+          <Button onClick={addToCart}>Add to cart</Button>
+        </div>
       </div>
+      <Review/>
     </div>
   );
 };

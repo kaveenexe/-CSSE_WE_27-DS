@@ -63,8 +63,8 @@ router.post("/upload", upload.single("image"), async(req, res) => {
 
 
 router.get('/foods', async (req, res) => {
-    const todos = await Food.find();
-    res.json(todos);
+  const todos = await Food.find();
+  res.json(todos);
 })
 
 
@@ -85,7 +85,7 @@ router.get('/getImage/:id', async (req, res) => {
 // GET products by category
 router.get("/:category", async (req, res) => {
   try {
-    const products = await Product.find({ category: req.params.category });
+    const products = await Food.find({ category: req.params.category });
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
