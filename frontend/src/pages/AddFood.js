@@ -3,8 +3,11 @@ import React from 'react'
 import FormData from 'form-data';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Modal from 'react-modal';
 
 import { useState, } from "react";
+
+
 
 const API_BASE = "http://localhost:9020";
 
@@ -16,7 +19,9 @@ const AddFood = () => {
             price:'',
             description:'',
             category:'',
-            image:'',	
+            image:'',
+            // showModal: false,
+            // message: ''	
 
         }
     );
@@ -36,7 +41,28 @@ const AddFood = () => {
         formData.append('name', newFood.name);
         formData.append('price', newFood.price);
         formData.append('description', newFood.description);
+        formData.append('category', newFood.category);
         formData.append('image', newFood.image);
+
+        // if (
+        //     newFood.name.trim() !== '' &&
+        //     newFood.price.trim() !== '' &&
+        //     newFood.category.trim() !== '' &&
+        //     newFood.image !== null
+        //   ) {
+        //     await axios.post('http://localhost:9020/api/upload', formData)
+        //       .then(res => {
+        //         setMessage('Product added successfully!');
+        //         handleShow();
+        //       })
+        //       .catch(err => {
+        //         setMessage('An error occurred while adding the product.');
+        //         handleShow();
+        //       });
+        //   } else {
+        //     setMessage('Please fill in all the fields.');
+        //     handleShow();
+        //   }
         
 
         console.log(formData.image);
@@ -44,11 +70,32 @@ const AddFood = () => {
         await axios.post('http://localhost:9020/api/upload', formData)
             .then(res => {
                 console.log(formData);
+                alert("Product Added");
             })
             .catch(err => {
                 console.log(err);
+                alert("Can't add Product");
             });
     }
+
+    // const handleClose = () => setShowModal(false);
+    // const handleShow = () => setShowModal(true);
+
+    // const [showModal, setShowModal] = useState(false);
+    // const [message, setMessage] = useState('');
+
+    //                             <Modal show={showModal} onHide={handleClose}>
+    //                             <Modal.Header closeButton>
+    //                                 <Modal.Title>{message}</Modal.Title>
+    //                             </Modal.Header>
+    //                             <Modal.Footer>
+    //                                 <Button variant="secondary" onClick={handleClose}>
+    //                                 Close
+    //                                 </Button>
+    //                             </Modal.Footer>
+    //                             </Modal>
+
+
     
     return (
         <section class="vh-100">
@@ -80,7 +127,7 @@ const AddFood = () => {
                                         placeholder="Enter Product Name"
                                         name="name"
                                         value={newFood.name}
-                                        onChange={handleChange}
+                                        onChange={handleChange} required
                                     />
                                 </div>
 
@@ -101,7 +148,7 @@ const AddFood = () => {
                                         placeholder="Enter the Description"
                                         name="description"
                                         value={newFood.description}
-                                        onChange={handleChange}
+                                        onChange={handleChange} 
                                     />
                                     
                                 </div>
@@ -120,7 +167,10 @@ const AddFood = () => {
                                
 
                                 <div class="text-center text-lg-start mt-4 pt-2">
-                                    <input type="submit" />
+                                <Button type = "submit">Submit</Button>
+
+                               
+
                                    
                                 </div>
 
