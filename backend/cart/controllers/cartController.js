@@ -30,9 +30,7 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
-<<<<<<< Updated upstream
-exports.putIncreaseCartCount = async(req, res) => {
-=======
+
 exports.deleteUserCartItems = async (req, res) => {
     const userId = req.params.userId;
     try {
@@ -69,7 +67,6 @@ exports.deleteUserCartItems = async (req, res) => {
   
 
 exports.getUserCartCount = async (req, res) => {
->>>>>>> Stashed changes
 
     const id = req.params.id;
     

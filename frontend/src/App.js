@@ -3,12 +3,6 @@ import Review from "./components/Review/Review";
 
 function App() {
   return (
-<<<<<<< Updated upstream
-    <div className="App">
-      <Cart/>
-      <Review/>
-    </div>
-=======
     <Context.Provider>
       <BrowserRouter>
         <div>
@@ -101,7 +95,7 @@ function App() {
         </div>
       </BrowserRouter>
     </Context.Provider>
->>>>>>> Stashed changes
+
   );
 }
 
