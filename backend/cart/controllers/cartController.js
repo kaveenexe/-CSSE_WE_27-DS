@@ -42,6 +42,12 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
+exports.deleteUserCartItems = async (req, res) =>{
+    const id =req.params.userId;
+    Cart.deleteMany({userId:id});
+    res.json("deleted successfully");
+}
+
 exports.getUserCartCount = async (req, res) => {
 
     const id = req.params.id;

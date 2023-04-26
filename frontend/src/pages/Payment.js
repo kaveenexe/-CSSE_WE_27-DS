@@ -11,25 +11,7 @@ const Payment = ({ cartTotal, cartFoodData }) => {
 
 
 
-    const pay = () => {
-        const order =
-        {
-            userID: localStorage.getItem("username"),
-            transactionID: Math.random().toString(36).substring(2, 8),
-            quantity: 1,
-            totalPrice: cartTotal
-        }
-        
 
-        const headers = {
-            Authorization: "Bearer my-token",
-            "My-Custom-Header": "foobar",
-          };
-          axios.post("http://localhost:8000/order/add", order, { headers });
-          removeCartItems();
-
-        
-    }
 
     const [newPayment, setNewPayment] = useState(
         {
@@ -54,10 +36,16 @@ const Payment = ({ cartTotal, cartFoodData }) => {
     const handleSubmit = async (e) => {
         console.log(newPayment);
         e.preventDefault();
+        const order =
+        {
+            userID: localStorage.getItem("username"),
+            transactionID: Math.random().toString(36).substring(2, 8),
+            quantity: 1,
+            totalPrice: cartTotal
+        }
 
 
-
-        await axios.post('http://localhost:8000/order/add', newPayment)
+        await axios.post('http://localhost:8000/order/add', order)
             .then(res => {
                 console.log(newPayment);
                 removeCartItems();
@@ -179,8 +167,8 @@ const Payment = ({ cartTotal, cartFoodData }) => {
                                             <div className='col-sm'></div>
                                             <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal}</div>
                                         </div>
-                                        <div>{`Pay ${cartTotal}`}</div>
-                                        <button onClick={pay}>Pay</button>
+                                        <input type='submit' value={`Pay ${cartTotal}`}/>
+                                        
                                     </div>
                                 </div>
                             </div>
