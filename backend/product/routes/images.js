@@ -40,6 +40,7 @@ router.post("/upload", upload.single("image"), async(req, res) => {
   const name = req.body.name;
     const price = req.body.price;
     const description = req.body.description;
+    const category = req.body.category;
     const image = result.secure_url;
    
     //res.secure_url
@@ -48,6 +49,7 @@ router.post("/upload", upload.single("image"), async(req, res) => {
         name,
         price,
         description,
+        category,
         image
        
     }
