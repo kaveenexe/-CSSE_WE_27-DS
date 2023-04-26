@@ -5,9 +5,9 @@ import Button from '@mui/material/Button';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const Payment = ({ cartTotal, cartFoodData }) => {
+const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
+   
     const navigate = useNavigate();
-
     const [newPayment, setNewPayment] = useState(
         {
             userId: localStorage.getItem("username"),
@@ -22,6 +22,10 @@ const Payment = ({ cartTotal, cartFoodData }) => {
         }
     );
 
+
+    useEffect(() => {
+
+      }, [cartTotal, setCartTotal]);
 
     
 
@@ -55,14 +59,30 @@ const Payment = ({ cartTotal, cartFoodData }) => {
          axios.post('http://localhost:8000/order/add', order)
             .then(res => {
                 console.log(newPayment);
-                navigate(`/cart/${localStorage.getItem("username")}`);
                 
+                deleteUserCartItems();
+                setCartTotal(0);
+              
+               
+             
             })
             .catch(err => {
                 console.log(err);
             });
             }
           });
+
+          const deleteUserCartItems =()=>{
+            axios.delete(`http://localhost:9010/api/cart/user/${localStorage.getItem("username")}`)
+            .then(res => {
+                console.log(newPayment);
+                navigate(`/cart/${localStorage.getItem("username")}`);
+                
+            })
+            .catch(err => {
+                console.log(err);
+            });
+          }
 
 
 

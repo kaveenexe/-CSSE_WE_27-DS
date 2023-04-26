@@ -239,7 +239,7 @@ function App() {
             <Route
               path="/payment"
               element={
-                <Payment cartTotal={cartTotal} cartFoodData={cartFoodData} />
+                <Payment setCartTotal={setCartTotal} cartTotal={cartTotal} cartFoodData={cartFoodData} />
               }
             />
 
