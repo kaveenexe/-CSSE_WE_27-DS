@@ -21,7 +21,7 @@ const {
  */
 router.get("/", getAllCartItems);
 
-router.delete("/:userId", deleteUserCartItems)
+router.delete("/user/:userId", deleteUserCartItems)
 
 /**
  * @route POST api/todo

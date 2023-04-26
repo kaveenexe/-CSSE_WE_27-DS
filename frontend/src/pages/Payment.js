@@ -2,16 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import FormData from 'form-data';
 import Button from '@mui/material/Button';
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Payment = ({ cartTotal, cartFoodData }) => {
-
-
-
-
-
-
-
-
+    const navigate = useNavigate();
 
     const [newPayment, setNewPayment] = useState(
         {
@@ -28,14 +23,26 @@ const Payment = ({ cartTotal, cartFoodData }) => {
     );
 
 
+    
 
     const handleChange = ({ target }) => {
         setNewPayment({ ...newPayment, [target.name]: target.value });
     }
 
     const handleSubmit = async (e) => {
-        console.log(newPayment);
         e.preventDefault();
+        Swal.fire({
+            title: "Are you sure want to pay?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("Payment Successfully!", "success");
+              console.log(newPayment);
+       
         const order =
         {
             userID: localStorage.getItem("username"),
@@ -45,27 +52,24 @@ const Payment = ({ cartTotal, cartFoodData }) => {
         }
 
 
-        await axios.post('http://localhost:8000/order/add', order)
+         axios.post('http://localhost:8000/order/add', order)
             .then(res => {
                 console.log(newPayment);
-                removeCartItems();
+                navigate(`/cart/${localStorage.getItem("username")}`);
+                
             })
             .catch(err => {
                 console.log(err);
             });
+            }
+          });
+
+
+
+        
 
     }
 
-    const removeCartItems = async () => {
-
-        await axios.put(`http://localhost:8080/api/cart/user/setConfirmed/${localStorage.getItem('username')}`)
-            .then(res => {
-
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
 
 
     return (

@@ -42,11 +42,15 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
-exports.deleteUserCartItems = async (req, res) =>{
-    const id =req.params.userId;
-    Cart.deleteMany({userId:id});
-    res.json("deleted successfully");
-}
+exports.deleteUserCartItems = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+      await Cart.deleteMany({ userId: userId });
+      res.json("Deleted successfully");
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
 
 exports.getUserCartCount = async (req, res) => {
 
