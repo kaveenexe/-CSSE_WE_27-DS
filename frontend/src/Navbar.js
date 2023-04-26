@@ -45,7 +45,7 @@ const NavBar = ({ cartCount, setCartCount, fetchCartCount, isSeller, setStatus, 
           >
             Home
           </Link>
-          <DropdownButton id="dropdown-basic-button" title="Catagories">
+          {/* <DropdownButton id="dropdown-basic-button" title="Catagories">
             <Dropdown.Item href="/herbal-beauty">
               Herbal Beauty Products
             </Dropdown.Item>
@@ -53,7 +53,7 @@ const NavBar = ({ cartCount, setCartCount, fetchCartCount, isSeller, setStatus, 
               Herbal Hair Products
             </Dropdown.Item>
             <Dropdown.Item href="/other">Other</Dropdown.Item>
-          </DropdownButton>
+          </DropdownButton> */}
           {status ? (
             <Link
               to="/my-account"
