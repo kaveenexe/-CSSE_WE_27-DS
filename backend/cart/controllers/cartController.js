@@ -30,7 +30,46 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
+<<<<<<< Updated upstream
 exports.putIncreaseCartCount = async(req, res) => {
+=======
+exports.deleteUserCartItems = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+      await Cart.deleteMany({ userId: userId });
+      res.json("Deleted successfully");
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+
+  exports.putCartItem = async (req, res) => {
+    const id = req.params.id;
+    const quantity = req.body.quantity;
+  
+    try {
+      const cart = await Cart.findByIdAndUpdate(id, {quantity:quantity})
+      if (!cart) {
+        return res.status(404).json({ error: "Cart or item not found" });
+      }
+      res.json(cart);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+
+  
+
+  exports.getCartItem = async (req, res) => {
+        const id = req.params.id;
+        const cartItems = await Cart.findById(id);  
+        res.json(cartItems)
+    }
+  
+
+exports.getUserCartCount = async (req, res) => {
+>>>>>>> Stashed changes
 
     const id = req.params.id;
     

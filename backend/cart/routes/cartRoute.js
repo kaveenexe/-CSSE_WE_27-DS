@@ -8,7 +8,17 @@ const {
     postCreateCartItem,
     putIncreaseCartCount,
     putUpdateCartItem,
+<<<<<<< Updated upstream
     deleteCartItem
+=======
+    deleteCartItem,
+    getUserCartTotal,
+    getUserCartCount,
+    deleteUserCartItems,
+    getCartItem,
+    putCartItem
+    
+>>>>>>> Stashed changes
 } = require("../controllers/cartController");
 
 /**
@@ -18,6 +28,15 @@ const {
  */
 router.get("/", getAllCartItems);
 
+<<<<<<< Updated upstream
+=======
+router.get("/getItem/:id", getCartItem)
+
+router.delete("/user/:userId", deleteUserCartItems)
+
+router.put("/update/:id", putCartItem)
+
+>>>>>>> Stashed changes
 /**
  * @route POST api/todo
  * @description add a new todo
