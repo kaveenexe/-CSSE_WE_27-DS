@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Banner from "../components/custdb_banner";
+import Order from "../components/CustomerOrders/order";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -15,15 +16,16 @@ import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 
+
 const API_BASE = "http://localhost:8080";
 
 const MyAccount = ({ isCustomer }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const key = localStorage.getItem("rfkey");
   const uid = localStorage.getItem("username");
-
+  const [userID, setUserID] = useState("");
   const [userDetails, setUserDetails] = useState({});
 
   const [orders, setOrders] = useState([]);
@@ -116,9 +118,7 @@ const MyAccount = ({ isCustomer }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+            <Order />
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -142,9 +142,9 @@ const MyAccount = ({ isCustomer }) => {
                       type="text"
                       placeholder={userDetails.username}
                     />
-                    <Form.Text className="text-muted">
+                    {/* <Form.Text className="text-muted">
                       Enter your new user name to update.
-                    </Form.Text>
+                    </Form.Text> */}
                   </Form.Group>
                   <Form.Group as={Col} md="5" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
@@ -152,12 +152,12 @@ const MyAccount = ({ isCustomer }) => {
                       type="email"
                       placeholder={userDetails.email}
                     />
-                    <Form.Text className="text-muted">
+                    {/* <Form.Text className="text-muted">
                       Enter your E-mail to update.
-                    </Form.Text>
+                    </Form.Text> */}
                   </Form.Group>
                 </Row>
-                <Button type="submit">Update</Button>
+                {/* <Button type="submit">Update</Button> */}
               </Form>
             </Typography>
           </AccordionDetails>
