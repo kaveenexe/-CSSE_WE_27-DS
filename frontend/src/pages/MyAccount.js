@@ -7,15 +7,15 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import Badge from 'react-bootstrap/Badge';
+import Badge from "react-bootstrap/Badge";
 import Banner from "../components/custdb_banner";
+import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-
 
 const API_BASE = "http://localhost:8080";
 
@@ -27,7 +27,10 @@ const MyAccount = ({ isCustomer }) => {
   const uid = localStorage.getItem("username");
   const [userID, setUserID] = useState("");
   const [userDetails, setUserDetails] = useState({});
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [orders, setOrders] = useState([]);
 
   const logOut = async () => {
@@ -59,7 +62,6 @@ const MyAccount = ({ isCustomer }) => {
     });
   };
 
-
   const loadOrdersData = async () => {
     axios.get("http://localhost:8010/order").then((response) => {
       const filteredOrders = response.data.orders.filter(
@@ -73,7 +75,6 @@ const MyAccount = ({ isCustomer }) => {
     loadUserData();
     loadOrdersData();
   }, []);
-
 
   useEffect(() => {
     loadUserData();
@@ -134,15 +135,47 @@ const MyAccount = ({ isCustomer }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-            {orders.map((order) => (
-              <div key={order._id} style={{backgroundColor: "#eff5ed", padding: "0.2rem 1rem", marginBottom: "1rem"}}>
-                <p>Your Order ID: {order._id}      <Badge bg="info"> {order.status}</Badge></p>
-                <p>Quantity: {order.quantity}</p>
-                <p>Ordered Date: {order.orderedDate}</p>
-                <p>Order Total Price: {order.totalPrice}</p>
-                {/* Display other order details... */}
-              </div>
-            ))}
+              {orders.map((order) => (
+                <div style={{display: "flex", backgroundColor: "#eff5ed",
+                padding: "0.2rem 1rem",
+                marginBottom: "1rem", justifyContent: "space-between"}}>
+                  <div
+                    key={order._id}
+                    
+                  >
+                    <p>
+                      Your Order ID: {order._id}{" "}
+                      <Badge bg="info"> {order.status}</Badge>
+                    </p>
+                    <p>Quantity: {order.quantity}</p>
+                    <p>Ordered Date: {order.orderedDate}</p>
+                    <p>Order Total Price: {order.totalPrice}</p>
+                    {/* Display other order details... */}
+                  </div>
+                  <div>
+                    <Button variant="primary" onClick={handleShow}>
+                      Track Order
+                    </Button>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Order Tracking</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Your order id is {order._id}<br/>
+                        Your order tracking information is {order.status}
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Close
+                        </Button>
+                        <Button variant="primary" onClick={handleClose}>
+                          Save Changes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                </div>
+              ))}
             </Typography>
           </AccordionDetails>
         </Accordion>
