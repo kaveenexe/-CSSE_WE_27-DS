@@ -82,7 +82,7 @@ function App() {
         )}`
       );
       setCartTotal(response);
-      console.log("Cart Total is"+ response);
+      console.log("Cart Total is" + response);
     } catch (error) {
       console.error(error.message);
     }
@@ -117,6 +117,7 @@ function App() {
 
   const fetchCartFoodData = async () => {
     setCartFoodLoading(true);
+    getCartTotal();
     try {
       const { data: response } = await axios.get(
         `http://localhost:9010/api/cart/${localStorage.getItem("username")}`
@@ -253,6 +254,8 @@ function App() {
               path="/product/:id"
               element={
                 <SingleFood
+                  getCartTotal={getCartTotal}
+                  cartTotal={cartTotal}
                   fetchCartFoodData={fetchCartFoodData}
                   fetchCartCount={fetchCartCount}
                   setLoading={setLoading}
@@ -276,13 +279,13 @@ function App() {
             <Route
               path="/seller-profile"
               element={
-                
-                  <Sellerdash isCustomer={isSeller} />
-               
+
+                <Sellerdash isCustomer={isSeller} />
+
               }
             />
 
-            <Route path="/update/:id" element={<UpdateFood fetchCartFoodData={fetchCartFoodData} getCartTotal={getCartTotal}/>} />
+            <Route path="/update/:id" element={<UpdateFood fetchCartFoodData={fetchCartFoodData} getCartTotal={getCartTotal} />} />
 
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

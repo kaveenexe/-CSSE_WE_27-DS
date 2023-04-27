@@ -8,7 +8,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const checkLogin = async () => {
     await fetch("http://localhost:8080/api/login", {
       method: "POST",

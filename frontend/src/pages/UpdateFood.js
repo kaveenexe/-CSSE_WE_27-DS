@@ -40,7 +40,7 @@ const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
                 Swal.fire('Updated Cart!', '', 'success')
                 const cartItem = {
                     userId: localStorage.getItem('username'),
-                    foodId: data._id,
+                    foodId: data.foodId,
                     foodName: data.name,
                     foodImage: data.image,
                     quantity: quantity,
@@ -53,13 +53,15 @@ const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
                 };
                 axios.put(`http://localhost:9010/api/cart/update/${data._id}`, cartItem, { headers });
                 console.log(cartItem)
+                
                
                 fetchCartFoodData();
+                getCartTotal();
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
         })
-
+        getCartTotal();
 
     }
 

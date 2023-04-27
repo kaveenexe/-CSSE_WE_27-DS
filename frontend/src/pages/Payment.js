@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
+
 const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
    
     const navigate = useNavigate();
@@ -23,6 +24,18 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
         }
     );
 
+    const removeCartItems = async()=>{
+        
+        await axios.delete(`http://localhost:9010/api/cart/user/${localStorage.getItem('username')}`)
+            .then(res => {
+                
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+
 
     useEffect(() => {
 
@@ -30,8 +43,8 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
 
 
       const getCartTotal = async()=>{
-        const { data: response } = await axios.get(`http://localhost:9010/api/cart/${localStorage.getItem("username")}`);
-                setCartTotal(response.total)
+        const { data: response } = await axios.get(`http://localhost:9010/api/cart/user/getTotal/${localStorage.getItem("username")}`);
+                setCartTotal(response)
                 
       }
 
@@ -57,6 +70,8 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
             if (result.isConfirmed) {
               Swal.fire("Payment Successfully!", "success");
               console.log(newPayment);
+              removeCartItems();
+              getCartTotal();
        
         const order =
         {
@@ -65,7 +80,7 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
             quantity: 1,
             totalPrice: cartTotal
         }
-
+        navigate(`/cart/${localStorage.getItem("username")}`)
         console.log(order);
 
 
