@@ -53,6 +53,7 @@ const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
                 };
                 axios.put(`http://localhost:9010/api/cart/update/${data._id}`, cartItem, { headers });
                 console.log(cartItem)
+                getCartTotal();
                
                 fetchCartFoodData();
             } else if (result.isDenied) {
