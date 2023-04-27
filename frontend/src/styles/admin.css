@@ -100,3 +100,55 @@ fs-4 {
   width: 200px;
   height: 50px;
 }
+
+.container {
+  margin-left: -10px;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 60vh;
+  overflow-x: auto;
+}
+
+.thead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .thead-light{
+  white-space: nowrap;
+  background-color: #456a79;
+  min-height: 20vh;
+  color: #bfcedc;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
+}
+
+.thead-light tr th:nth-child(1){
+  min-width: 70px;
+}
+
+.thead-light tr th:nth-child(2){
+  min-width: 100px;
+}
+
+.thead-light tr th:nth-child(3){
+  min-width: 100px;
+}
+
+.table tbody tr:hover{
+  background: #b4c6ce;
+}
+
+.deleteIcon {
+  margin-left: 12px;
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: darkgray;
+}
+
+.editIcon {
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: darkgray;
+}
