@@ -13,7 +13,9 @@ const {
     getUserCartCount,
     deleteUserCartItems,
     getCartItem,
-    putCartItem
+    putCartItem,
+    getCartTotal,
+    getCartCount
     
 
 } = require("../controllers/cartController");
@@ -27,6 +29,10 @@ router.get("/", getAllCartItems);
 
 
 router.get("/getItem/:id", getCartItem)
+
+router.get("/user/getTotal/:id", getCartTotal)
+
+router.get("/users/:id", getCartCount)
 
 router.delete("/user/:userId", deleteUserCartItems)
 

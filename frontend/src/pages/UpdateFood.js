@@ -8,24 +8,26 @@ import TextField from '@mui/material/TextField';
 const API_BASE = "http://localhost:8080";
 
 
-const UpdateFood = ({fetchCartFoodData}) => {
+const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
     let { id } = useParams();
     const baseURL = `http://localhost:8080/api/${id}`;
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([])
 
-    const [total, setTotal] = useState("")
-    const [quantity, setQuantity] = useState("")
+    const [total, setTotal] = useState()
+    const [quantity, setQuantity] = useState()
 
 
     const calculateTotal = ({ target }) => {
-        setQuantity(target.value);
-        setTotal(target.value * (data.total / data.quantity));
+        setQuantity(parseInt(target.value));
+        setTotal(parseInt(target.value) * data.unit_price);
+        console.log(total);
+        console.log("data unit price"+ data.unit_price);
     }
 
 
     const updateCart = async () => {
-        setTotal(quantity*data.unit_price);
+        
         await Swal.fire({
             title: 'Do you want to update the cart?',
             showDenyButton: false,
@@ -42,7 +44,7 @@ const UpdateFood = ({fetchCartFoodData}) => {
                     foodName: data.name,
                     foodImage: data.image,
                     quantity: quantity,
-                    total: total
+                    total: quantity*parseInt(data.unit_price)
                 };
 
                 const headers = {
@@ -51,6 +53,7 @@ const UpdateFood = ({fetchCartFoodData}) => {
                 };
                 axios.put(`http://localhost:9010/api/cart/update/${data._id}`, cartItem, { headers });
                 console.log(cartItem)
+               
                 fetchCartFoodData();
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
