@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
    
+    const taxRate = 0.1;
     const navigate = useNavigate();
     
     const [newPayment, setNewPayment] = useState(
@@ -78,7 +79,7 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
             userID: localStorage.getItem("username"),
             transactionID: Math.random().toString(36).substring(2, 8),
             quantity: 1,
-            totalPrice: cartTotal
+            totalPrice: cartTotal+(cartTotal*taxRate)
         }
         navigate(`/cart/${localStorage.getItem("username")}`)
         console.log(order);
@@ -213,9 +214,21 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <div className='col-sm'>Tax</div>
+                                            <div className='col-sm'></div>
+                                            <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal*taxRate}</div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
                                             <div className='col-sm'>Total</div>
                                             <div className='col-sm'></div>
                                             <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal}</div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <div className='col-sm'>Total with Tax</div>
+                                            <div className='col-sm'></div>
+                                            <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal+(cartTotal*taxRate)}</div>
                                         </div>
                                         <button onClick={addOrder}>Pay ${cartTotal}</button>
                                         
