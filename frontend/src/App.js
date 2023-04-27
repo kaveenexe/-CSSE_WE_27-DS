@@ -77,12 +77,12 @@ function App() {
   const getCartTotal = async () => {
     try {
       const { data: response } = await axios.get(
-        `http://localhost:9010/api/cart/total/${localStorage.getItem(
+        `http://localhost:9010/api/cart/user/getTotal/${localStorage.getItem(
           "username"
         )}`
       );
       setCartTotal(response);
-      console.log(response);
+      console.log("Cart Total is"+ response);
     } catch (error) {
       console.error(error.message);
     }
@@ -282,7 +282,7 @@ function App() {
               }
             />
 
-            <Route path="/update/:id" element={<UpdateFood />} />
+            <Route path="/update/:id" element={<UpdateFood fetchCartFoodData={fetchCartFoodData} getCartTotal={getCartTotal}/>} />
 
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

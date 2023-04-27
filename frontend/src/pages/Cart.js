@@ -15,6 +15,7 @@ const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, ge
   }
 
   useEffect(() => {
+    
     fetchCartFoodData();
   }, []);
 

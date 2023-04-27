@@ -99,6 +99,24 @@ exports.putUpdateCartItem = (req, res) => {
       );
 };
 
+exports.getCartTotal = async(req, res) =>{
+    let sum = 0;
+    const id = req.params.id;
+    const cartItems = await Cart.find();
+    const cartItem = cartItems.filter(e => e.userId == id );
+    cartItem.forEach(e => {
+        sum += parseFloat(e.total)
+    })
+    res.json(sum);
+}
+
+exports.getCartCount = async(req, res) =>{
+  const id = req.params.id;
+  const cartItems = await Cart.find();
+  const cartItem = cartItems.filter(e => e.userId == id);
+  res.json(cartItem.length);
+}
+
 
 exports.putCartItem = async (req, res) => {
   const id = req.params.id;

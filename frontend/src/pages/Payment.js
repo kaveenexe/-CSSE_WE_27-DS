@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
    
     const navigate = useNavigate();
+    
     const [newPayment, setNewPayment] = useState(
         {
             userId: localStorage.getItem("username"),
@@ -27,13 +28,23 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
 
       }, [cartTotal, setCartTotal]);
 
+
+      const getCartTotal = async()=>{
+        const { data: response } = await axios.get(`http://localhost:9010/api/cart/${localStorage.getItem("username")}`);
+                setCartTotal(response.total)
+                
+      }
+
+      useEffect(() => {
+        getCartTotal();
+      }, [cartTotal]);
     
 
     const handleChange = ({ target }) => {
         setNewPayment({ ...newPayment, [target.name]: target.value });
     }
 
-    const handleSubmit = async (e) => {
+    const addOrder = async (e) => {
         e.preventDefault();
         Swal.fire({
             title: "Are you sure want to pay?",
@@ -55,16 +66,16 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
             totalPrice: cartTotal
         }
 
+        console.log(order);
 
-         axios.post('http://localhost:8000/order/add', order)
+
+         axios.post('http://localhost:8010/order/add', order)
             .then(res => {
-                console.log(newPayment);
+                // console.log(order);
                 
-                deleteUserCartItems();
-                setCartTotal(0);
+                // deleteUserCartItems();
+                // setCartTotal(0);
               
-               
-             
             })
             .catch(err => {
                 console.log(err);
@@ -106,7 +117,7 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
                             <p class="fw-bold">Payment Details</p>
                             <p class="dis mb-3">Complete your purchase by providing your payment details</p>
                         </div>
-                        <form onSubmit={handleSubmit}>
+                        <form >
 
                             <div>
                                 <p class="dis fw-bold mb-2">Card details</p>
@@ -191,7 +202,7 @@ const Payment = ({ setCartTotal, cartTotal, cartFoodData }) => {
                                             <div className='col-sm'></div>
                                             <div className='col-sm'><span class="fas fa-dollar-sign"></span>{cartTotal}</div>
                                         </div>
-                                        <input type='submit' value={`Pay ${cartTotal}`}/>
+                                        <button onClick={addOrder}>Pay ${cartTotal}</button>
                                         
                                     </div>
                                 </div>
