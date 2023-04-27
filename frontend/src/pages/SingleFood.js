@@ -137,6 +137,7 @@ const SingleFood = ({
           <div>
             <h1>{singleFood.name}</h1>
           </div>
+          
           <div>
             <h6>Description</h6>
             <hr />

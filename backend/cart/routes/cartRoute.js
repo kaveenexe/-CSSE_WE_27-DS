@@ -6,7 +6,7 @@ const {
     getAllCartItems,
     getUserCartItems,
     postCreateCartItem,
-    putIncreaseCartCount,
+    
     putUpdateCartItem,
     deleteCartItem,
     getUserCartTotal,
@@ -50,7 +50,7 @@ router.post("/", postCreateCartItem);
  */
 router.put("/:id", putUpdateCartItem);
 
-router.put("/increase/:id", putIncreaseCartCount);
+
 
 
 /**
