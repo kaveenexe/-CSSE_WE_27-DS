@@ -63,3 +63,15 @@ exports.removeOrder = (req, res) => {
 };
 
 
+exports.findUserID = async (req, res) => {
+  const id = req.params.id;
+  const quantity = req.body.quantity;
+
+  try {
+    const orders = await Order.find({userID: id})
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
