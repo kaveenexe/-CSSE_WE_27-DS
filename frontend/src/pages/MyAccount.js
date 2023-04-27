@@ -118,8 +118,8 @@ const MyAccount = ({ isCustomer }) => {
           <AccordionDetails>
             <Typography>
               Hello, {userDetails.username}. From your account dashboard, you
-              can easily check & view your recent orders, manage your shipping
-              and billing addresses and edit your password and account details.
+              can easily check & view your recent orders, track your orders and
+              view your account details from this Dashboard.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -136,13 +136,16 @@ const MyAccount = ({ isCustomer }) => {
           <AccordionDetails>
             <Typography>
               {orders.map((order) => (
-                <div style={{display: "flex", backgroundColor: "#eff5ed",
-                padding: "0.2rem 1rem",
-                marginBottom: "1rem", justifyContent: "space-between"}}>
-                  <div
-                    key={order._id}
-                    
-                  >
+                <div
+                  style={{
+                    display: "flex",
+                    backgroundColor: "#eff5ed",
+                    padding: "0.2rem 1rem",
+                    marginBottom: "1rem",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div key={order._id}>
                     <p>
                       Your Order ID: {order._id}{" "}
                       <Badge bg="info"> {order.status}</Badge>
@@ -161,15 +164,13 @@ const MyAccount = ({ isCustomer }) => {
                         <Modal.Title>Order Tracking</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
-                        Your order id is {order._id}<br/>
+                        Your order id is {order._id}
+                        <br />
                         Your order tracking information is {order.status}
                       </Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                           Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                          Save Changes
                         </Button>
                       </Modal.Footer>
                     </Modal>
