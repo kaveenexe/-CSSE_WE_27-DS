@@ -22,18 +22,6 @@ exports.postCreateCartItem = (req, res) => {
         );
 };
 
-// exports.postCreateCartItem = async(req, res) => {
-//     let sum = 0;
-//     const id = req.params.id;
-//     const cartItems = await Cart.find();
-//     const cartItem = cartItems.filter(e => e.userId == id );
-//     cartItem.forEach(e => {
-//         sum += parseFloat(e.total)
-//     })
-//     res.json(sum);
-// };
-
-
 
 exports.getUserCartItems = async (req, res) => {
     const id = req.params.userId;
@@ -41,6 +29,7 @@ exports.getUserCartItems = async (req, res) => {
     const cartItem = cartItems.filter(e => e.userId == id);
     res.json(cartItem);
 };
+
 
 exports.deleteUserCartItems = async (req, res) => {
     const userId = req.params.userId;
@@ -52,38 +41,39 @@ exports.deleteUserCartItems = async (req, res) => {
     }
   }
 
+  exports.putCartItem = async (req, res) => {
+    const id = req.params.id;
+    const quantity = req.body.quantity;
+  
+    try {
+      const cart = await Cart.findByIdAndUpdate(id, {quantity:quantity})
+      if (!cart) {
+        return res.status(404).json({ error: "Cart or item not found" });
+      }
+      res.json(cart);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+
+  
+
+  exports.getCartItem = async (req, res) => {
+        const id = req.params.id;
+        const cartItems = await Cart.findById(id);  
+        res.json(cartItems)
+    }
+  
+
 exports.getUserCartCount = async (req, res) => {
 
     const id = req.params.id;
-    const cartItems = await Cart.find();
-    const cartItem = cartItems.filter(e => e.userId == id );
-    res.json(cartItem.length);
-
-};
-
-
-exports.getUserCartTotal = async (req, res) => {
-    let sum = 0;
-    const id = req.params.id;
-    const cartItems = await Cart.find();
-    const cartItem = cartItems.filter(e => e.userId == id);
-    cartItem.forEach(e => {
-        sum += parseFloat(e.total)
-    })
-    res.json(sum);
-}
-
-
-
-
-exports.putIncreaseCartCount = async (req, res) => {
-
-    const id = req.params.id;
-
+    
     const filter = { _id: id };
 
     const cartItems = await Cart.find();
-    const cartItem = cartItems.filter(e => e._id == id);
+    const cartItem = cartItems.filter(e => e._id == id );
     var c = parseInt(cartItem.quantity);
     c = c + 1;
     const update = { quantity: c };
@@ -109,7 +99,6 @@ exports.putUpdateCartItem = (req, res) => {
                 .json({ message: "Failed to update cart item", error: err.message })
         );
 };
-
 
 exports.deleteCartItem = (req, res) => {
     Cart.findByIdAndRemove(req.params.id, req.body)
