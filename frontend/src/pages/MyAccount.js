@@ -8,7 +8,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Banner from "../components/custdb_banner";
-import Order from "../components/CustomerOrders/order";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +57,22 @@ const MyAccount = ({ isCustomer }) => {
       setUserDetails(data.data);
     });
   };
+
+
+  const loadOrdersData = async () => {
+    axios.get("http://localhost:8010/order").then((response) => {
+      const filteredOrders = response.data.orders.filter(
+        (order) => order.userID === uid
+      );
+      setOrders(filteredOrders);
+    });
+  };
+
+  useEffect(() => {
+    loadUserData();
+    loadOrdersData();
+  }, []);
+
 
   useEffect(() => {
     loadUserData();
@@ -118,7 +133,13 @@ const MyAccount = ({ isCustomer }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-            <Order />
+            {orders.map((order) => (
+              <div key={order._id}>
+                <p>Order ID: {order._id}</p>
+                <p>Quantity: {order.userID}</p>
+                {/* Display other order details... */}
+              </div>
+            ))}
             </Typography>
           </AccordionDetails>
         </Accordion>

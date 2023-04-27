@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Review.css"
-
+import moment from "moment";
 
 const Review = ({reviewLoading, reviews}) => {
   return (
