@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import Badge from 'react-bootstrap/Badge';
 import Banner from "../components/custdb_banner";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -134,9 +135,11 @@ const MyAccount = ({ isCustomer }) => {
           <AccordionDetails>
             <Typography>
             {orders.map((order) => (
-              <div key={order._id}>
-                <p>Order ID: {order._id}</p>
-                <p>Quantity: {order.userID}</p>
+              <div key={order._id} style={{backgroundColor: "#eff5ed", padding: "0.2rem 1rem", marginBottom: "1rem"}}>
+                <p>Your Order ID: {order._id}      <Badge bg="info"> {order.status}</Badge></p>
+                <p>Quantity: {order.quantity}</p>
+                <p>Ordered Date: {order.orderedDate}</p>
+                <p>Order Total Price: {order.totalPrice}</p>
                 {/* Display other order details... */}
               </div>
             ))}
