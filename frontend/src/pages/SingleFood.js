@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import moment from 'moment'
 import Button from "react-bootstrap/Button";
 import Review from "../components/Review/Review";
 import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
+
 
 const SingleFood = ({
   fetchCartFoodData,
@@ -20,32 +22,10 @@ const SingleFood = ({
   const [quantity, setQuantity] = useState(1);
   const [singleFood, setSingleFood] = useState([]);
   const [total, setTotal] = useState("");
-  const [reviewLoading, setReviewLoading] = useState(true);
-
-  const [reviews, setReviews] = useState([]);
-
   const [review, setReview] = useState("");
-
-  const fetchReviews = async () => {
-    await axios
-      .get(`http://localhost:8000/api/productReview/${singleFood._id}`, {})
-      .then(res => {
-        const data = res.data
-        console.log(data)
-        setReviews(data);
-        setReviewLoading(false)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  useEffect(() => {
-    console.log("comment data")
-    fetchReviews();
-    console.log(reviews)
-
-}, []);
+  const [cid, setCid] = useState();
+  const [reviewLoading, setReviewLoading] = useState(true);
+  
 
   const handleReview = (e) => {
     setReview(e.target.value);
@@ -58,12 +38,13 @@ const SingleFood = ({
       try {
         const { data: response } = await axios.get(baseURL);
         setSingleFood(response);
+        console.log("cid is "+ singleFood._id)
       } catch (error) {
         console.error(error.message);
       }
       setLoading(false);
     };
-
+    setCid(singleFood._id)
     fetchData();
   }, []);
 
@@ -73,7 +54,23 @@ const SingleFood = ({
   };
 
 
+  const reviewsData= [
+    {
+      "userid":"2323",
+      "review": "Good App",
+    },
+    {
+      "userid":"22323",
+      "review": "Good App",
+    },
+    {
+      "userid":"2323",
+      "review": "Good App",
+    }
+  ]
 
+
+  
   const addReview = async () => {
     Swal.fire({
       title: "Are you sure want to add this review?",
@@ -122,6 +119,8 @@ const SingleFood = ({
           image: singleFood.image,
         };
 
+        setCid(singleFood._id)
+
         const headers = {
           Authorization: "Bearer my-token",
           "My-Custom-Header": "foobar",
@@ -133,6 +132,35 @@ const SingleFood = ({
       }
     });
   };
+
+ 
+
+  const [reviews, setReviews] = useState([]);
+  
+  const fetchReviews = async () => {
+    console.log("food id is "+ id)
+    await axios
+      .get(`http://localhost:8000/api/productReview/${id}`, {})
+      .then(res => {
+        const data = res.data
+        console.log(data)
+        setReviews(data);
+        console.log(reviews)
+        setReviewLoading(false)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    console.log("comment data")
+    fetchReviews();
+
+}, []);
+
+
+  
 
   return (
     <div className="container">
@@ -194,7 +222,24 @@ const SingleFood = ({
         <Button onClick={addReview} style={{ height: "100%" }}>Add Review</Button>
       </div>
 
-      <Review reviews={reviews} />
+      {reviewLoading && <div>Loading</div>}
+                {!reviewLoading && (
+                    <div class="grid-container">
+                        {reviews.map((review) => (
+                            <div className='row my-4 bg-light text-dark h6 d-flex direction-col justify-content-between align-items-center border p-2'>
+                                <div className='col-sm d-flex justify-content-center'>
+                                    {review.userId}
+                                </div>
+                                <div className='col-sm d-flex justify-content-center'>
+                                    {review.review}
+                                </div>
+                                <div className='col-sm d-flex justify-content-center'>
+                                    {moment(review.review_date).format("YYYY/MM/DD hh:mm:ss", true)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
     </div>
   );
 };
