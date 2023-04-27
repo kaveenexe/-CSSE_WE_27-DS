@@ -85,22 +85,6 @@ const MyAccount = ({ isCustomer }) => {
     navigate(`/cart/${username}`);
   };
 
-  // const fetchPaymentDetails = async () => {
-  //     if (isSeller) {
-  //         try {
-  //             const { data: response } = await axios.get(`http://localhost:8080/api/payment/payments`);
-  //             setOrders(response);
-  //             console.log(response);
-
-  //         } catch (error) {
-  //             console.error(error.message);
-  //         }
-  //     }
-  // }
-
-  // useEffect(() => {
-  //     fetchPaymentDetails();
-  // }, []);
 
   return (
     <div className="">
