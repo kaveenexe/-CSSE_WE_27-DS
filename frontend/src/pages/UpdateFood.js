@@ -5,19 +5,18 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+const API_BASE = "http://localhost:8080";
 
 
-
-const UpdateFood = () => {
+const UpdateFood = ({fetchCartFoodData}) => {
     let { id } = useParams();
-
+    const baseURL = `http://localhost:8080/api/${id}`;
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([])
 
     const [total, setTotal] = useState("")
     const [quantity, setQuantity] = useState("")
-    
-    const [updateFoodLoading, setUpdateFoodLoading] = useState(false);
+
 
     const calculateTotal = ({ target }) => {
         setQuantity(target.value);
@@ -26,7 +25,7 @@ const UpdateFood = () => {
 
 
     const updateCart = async () => {
-
+        setTotal(quantity*data.unit_price);
         await Swal.fire({
             title: 'Do you want to update the cart?',
             showDenyButton: false,
@@ -50,8 +49,9 @@ const UpdateFood = () => {
                     'Authorization': 'Bearer my-token',
                     'My-Custom-Header': 'foobar'
                 };
-                axios.post(`http://localhost:9010/api/cart/${data._id}`, cartItem, { headers });
-
+                axios.put(`http://localhost:9010/api/cart/update/${data._id}`, cartItem, { headers });
+                console.log(cartItem)
+                fetchCartFoodData();
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
             }
@@ -64,9 +64,9 @@ const UpdateFood = () => {
     useEffect(() => {
 
         const fetchData = async () => {
-            setUpdateFoodLoading(true);
+            setLoading(true);
             try {
-                const { data: response } = await axios.get(`http://localhost:9020/api/${id}`);
+                const { data: response } = await axios.get(`http://localhost:9010/api/cart/getItem/${id}`);
                 setData(response);
                 setQuantity(response.quantity);
 
@@ -77,49 +77,45 @@ const UpdateFood = () => {
                 console.error(error.message);
             }
 
-            setUpdateFoodLoading(true);
+            setLoading(false);
         }
 
         fetchData();
     }, []);
 
+
+    
+
     return (
-        <div>
-            {updateFoodLoading && <div>Loading</div>}
-            {
-                !updateFoodLoading && (
-                    <div class="grid-container">
-
-
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col-8' >
-                                    <h1><center>{data.foodName}</center></h1>
-                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <img src={data.foodImage} style={{ width: '50%', height: '50%' }} />
-                                    </div>
-                                    <div style={{ display: 'flex', justifyContent: 'center' }}>{data.description}</div>
-                                </div>
-
-                                <div className='col-4' style={{ paddingTop: '20%' }}>
-
-                                    <div className='row'>
-                                        <TextField id="outlined-basic" label="Quantity" variant="outlined" onChange={calculateTotal} />
-
-                                    </div>
-                                    <div className='row'>
-                                        <div className='col'>Total</div>
-                                        <div className='col'>{total}</div>
-                                    </div>
-                                    <div className='row'>
-                                        <Button variant="contained" onClick={() => updateCart(id)}>Update</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div className='container'>
+            <div className='row'>
+                <div className='col-8' >
+                    <h1><center>{data.foodName}</center></h1>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <img src={data.image} style={{ width: '50%', height: '50%' }} />
                     </div>
-                )}
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>{data.description}</div>
+                </div>
+
+                <div className='col-4' style={{ paddingTop: '20%' }}>
+
+                    <div className='row'>
+                        <TextField id="outlined-basic" label="Quantity" variant="outlined" onChange={calculateTotal} value={quantity} />
+
+                    </div>
+                    <div className='row'>
+                        <div className='col'>Total</div>
+                        <div className='col'>{data.unit_price*quantity}</div>
+                    </div>
+                    <div className='row'>
+                        <Button variant="contained" onClick={() => updateCart(id)}>Update</Button>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     )
 }
+
 export default UpdateFood

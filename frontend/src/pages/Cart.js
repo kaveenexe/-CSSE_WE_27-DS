@@ -40,7 +40,8 @@ const Cart = ({ deleteItem, fetchCartFoodData, cartFoodLoading, cartFoodData, ge
               <div className='row d-flex flex-row'>
                 <img className='img-circle ' src={item.image} alt="..." style={{ width: '150px', height: '100px' }} />
                 <div className='col d-flex align-items-center'>{item.foodName}</div>
-                <div className='col d-flex align-items-center'>Rs. {item.total}</div>
+                <div className='col d-flex align-items-center'>x {item.quantity}</div>
+                <div className='col d-flex align-items-center'>Rs. {item.unit_price* item.quantity}</div>
                 <div className='col d-flex align-items-center align-items-end'>
                   <Button variant="contained" onClick={() => redirectEditFood(item._id)} style={{ margin: '10px', width: '150px' }}>Edit</Button>
                   <Button variant="contained" onClick={

@@ -21,6 +21,13 @@ const SingleFood = ({
   const [singleFood, setSingleFood] = useState([]);
   const [total, setTotal] = useState("");
 
+  const [review, setReview] = useState("");
+
+  const handleReview = (e) => {
+    setReview(e.target.value);
+    console.log(review)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -40,6 +47,36 @@ const SingleFood = ({
     setQuantity(target.value);
     setTotal(target.value * singleFood.price);
   };
+
+  const addReview = async () => {
+    Swal.fire({
+      title: "Are you sure want to add this review?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Review Added!", "success");
+        const reviewItem = {
+          userId: localStorage.getItem("username"),
+          productId: singleFood._id,
+          review: review,
+
+        };
+
+        const headers = {
+          Authorization: "Bearer my-token",
+          "My-Custom-Header": "foobar",
+        };
+        axios.post("http://localhost:7000/api/productReview/", reviewItem, { headers });
+        console.log(reviewItem);
+        //fetchCartFoodData();
+
+      }
+    });
+  }
 
   const addToCart = async () => {
     Swal.fire({
@@ -100,6 +137,7 @@ const SingleFood = ({
           <div>
             <h1>{singleFood.name}</h1>
           </div>
+          
           <div>
             <h6>Description</h6>
             <hr />
@@ -127,7 +165,13 @@ const SingleFood = ({
           <Button onClick={addToCart}>Add to cart</Button>
         </div>
       </div>
-      <Review/>
+      <div>We are welcoming your reviews!</div>
+      <div className="d-flex justify-content-center align-items-center">
+        <TextField onChange={handleReview} value={review} className="container"/>
+        <Button onClick={addReview} style={{height:"100%"}}>Add Review</Button>
+      </div>
+
+      <Review productId={singleFood._id}/>
     </div>
   );
 };
