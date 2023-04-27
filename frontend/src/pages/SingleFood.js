@@ -20,8 +20,32 @@ const SingleFood = ({
   const [quantity, setQuantity] = useState(1);
   const [singleFood, setSingleFood] = useState([]);
   const [total, setTotal] = useState("");
+  const [reviewLoading, setReviewLoading] = useState(true);
+
+  const [reviews, setReviews] = useState([]);
 
   const [review, setReview] = useState("");
+
+  const fetchReviews = async () => {
+    await axios
+      .get(`http://localhost:8000/api/productReview/${singleFood._id}`, {})
+      .then(res => {
+        const data = res.data
+        console.log(data)
+        setReviews(data);
+        setReviewLoading(false)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    console.log("comment data")
+    fetchReviews();
+    console.log(reviews)
+
+}, []);
 
   const handleReview = (e) => {
     setReview(e.target.value);
@@ -48,6 +72,8 @@ const SingleFood = ({
     setTotal(target.value * singleFood.price);
   };
 
+
+
   const addReview = async () => {
     Swal.fire({
       title: "Are you sure want to add this review?",
@@ -62,21 +88,18 @@ const SingleFood = ({
         const reviewItem = {
           userId: localStorage.getItem("username"),
           productId: singleFood._id,
-          review: review,
-
+          review: review
         };
 
         const headers = {
           Authorization: "Bearer my-token",
           "My-Custom-Header": "foobar",
         };
-        axios.post("http://localhost:7000/api/productReview/", reviewItem, { headers });
+        axios.post("http://localhost:8000/api/productReview/", reviewItem, { headers });
         console.log(reviewItem);
-        //fetchCartFoodData();
-
       }
     });
-  }
+  };
 
   const addToCart = async () => {
     Swal.fire({
@@ -137,7 +160,7 @@ const SingleFood = ({
           <div>
             <h1>{singleFood.name}</h1>
           </div>
-          
+
           <div>
             <h6>Description</h6>
             <hr />
@@ -167,11 +190,11 @@ const SingleFood = ({
       </div>
       <div>We are welcoming your reviews!</div>
       <div className="d-flex justify-content-center align-items-center">
-        <TextField onChange={handleReview} value={review} className="container"/>
-        <Button onClick={addReview} style={{height:"100%"}}>Add Review</Button>
+        <TextField onChange={handleReview} value={review} className="container" />
+        <Button onClick={addReview} style={{ height: "100%" }}>Add Review</Button>
       </div>
 
-      <Review productId={singleFood._id}/>
+      <Review reviews={reviews} />
     </div>
   );
 };
