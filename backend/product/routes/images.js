@@ -92,4 +92,20 @@ router.get("/:category", async (req, res) => {
   }
 });
 
+//Product delete
+router.route("/delete/:id/").delete(async (req, res) => {
+  let productId = req.params.id;
+
+  await Food.findByIdAndDelete(productId)
+    .then(() => {
+      res.status(200).send({ status: "Product deleted" });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res
+        .status(500)
+        .send({ status: "Error with delete user", error: err.message });
+    });
+});
+
 export default router;
