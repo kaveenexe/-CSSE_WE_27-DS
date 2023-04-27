@@ -25,7 +25,6 @@ const SingleFood = ({
   const [singleFood, setSingleFood] = useState([]);
   const [total, setTotal] = useState("");
   const [review, setReview] = useState("");
-  const [cid, setCid] = useState();
   const [reviewLoading, setReviewLoading] = useState(true);
   
 
@@ -51,7 +50,7 @@ const SingleFood = ({
       }
       setLoading(false);
     };
-    setCid(singleFood._id)
+   
     fetchData();
   }, []);
 
@@ -60,24 +59,6 @@ const SingleFood = ({
     setTotal(target.value * singleFood.price);
   };
 
-
-  const reviewsData= [
-    {
-      "userid":"2323",
-      "review": "Good App",
-    },
-    {
-      "userid":"22323",
-      "review": "Good App",
-    },
-    {
-      "userid":"2323",
-      "review": "Good App",
-    }
-  ]
-
-
-  
   const addReview = async () => {
     Swal.fire({
       title: "Are you sure want to add this review?",
@@ -101,6 +82,7 @@ const SingleFood = ({
         };
         axios.post("http://localhost:8000/api/productReview/", reviewItem, { headers });
         console.log(reviewItem);
+        fetchReviews();
       }
     });
   };
@@ -126,7 +108,7 @@ const SingleFood = ({
           image: singleFood.image,
         };
 
-        setCid(singleFood._id)
+   
 
         const headers = {
           Authorization: "Bearer my-token",
