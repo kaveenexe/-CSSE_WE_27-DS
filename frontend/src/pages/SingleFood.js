@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Review from "../components/Review/Review";
 import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
 
@@ -194,7 +193,6 @@ const SingleFood = ({
         <Button onClick={addReview} style={{ height: "100%" }}>Add Review</Button>
       </div>
 
-      <Review reviews={reviews} />
     </div>
   );
 };
