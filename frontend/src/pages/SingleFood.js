@@ -5,12 +5,14 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from 'moment'
 import Button from "react-bootstrap/Button";
-import Review from "../components/Review/Review";
+
 import TextField from "@mui/material/TextField";
 const API_BASE = "http://localhost:9010";
 
 
 const SingleFood = ({
+  getCartTotal,
+  cartTotal,
   fetchCartFoodData,
   fetchCartCount,
   setLoading,
@@ -33,8 +35,13 @@ const SingleFood = ({
   }
 
   useEffect(() => {
+    getCartTotal();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      setQuantity(1);
       try {
         const { data: response } = await axios.get(baseURL);
         setSingleFood(response);
