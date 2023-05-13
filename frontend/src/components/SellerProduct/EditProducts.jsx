@@ -1,13 +1,14 @@
-import ProductDetails from './ProductDetails';
+import React from 'react';
+import ProductDetails from '../../components/SellerProduct/ProductDetails';
 
-function EditProducts() {
+export default function EditProducts() {
   return (
     <div>
-      <ProductDetails/>
-      <h1>aaa</h1>
+      {/* <ProductDetails/> */}
+      <h1>Edit Product</h1>
     </div>
   );
 }
 
-export default EditProducts;
+
 
