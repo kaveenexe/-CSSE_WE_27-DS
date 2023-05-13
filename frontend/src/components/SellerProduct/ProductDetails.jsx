@@ -22,9 +22,21 @@ function ProductDetails() {
         {/* <Button variant="primary" onClick={() => history.push('/EditProducts')}>
           Edit
         </Button> */}
-        <Button variant="primary" onClick={ ()=>navigate(`/EditProducts/`)}>Edit</Button>
+        {/* <Button variant="primary" onClick={ ()=>navigate(`/EditProducts/`)}>Edit</Button>
         <Editproducts/>
-        <Button variant="primary">Delete</Button>
+        <Button variant="primary">Delete</Button> */}
+        <Button
+            variant="primary"
+            onClick={() => navigate(`/edit-product/`)}
+            >
+            Edit
+        </Button>
+        <Button
+            variant="primary"
+            onClick={() => navigate(`/edit-product/`)}
+            >
+            Delete
+        </Button>
 
       </Card.Body>
     </Card>

@@ -31,6 +31,7 @@ import Catagory2 from "./pages/Catagories/HerbalHairProducts";
 import Catagory3 from "./pages/Catagories/Other";
 
 import Sellerdash from "./pages/SellerDashboard";
+import EditProducts from "./components/SellerProduct/EditProducts";
 
 
 
@@ -235,7 +236,7 @@ function App() {
               }
             />
 
-            <Route path="/add-food" element={<AddFood />} />
+            {/* <Route path="/add-food" element={<AddFood />} /> */}
 
             <Route
               path="/payment"
@@ -265,7 +266,7 @@ function App() {
               }
             />
 
-            <Route path="/add-food" element={<AddFood />} />
+            {/* <Route path="/add-food" element={<AddFood />} /> */}
 
             <Route
               path="/my-account"
@@ -284,6 +285,8 @@ function App() {
 
               }
             />
+
+            <Route path="/edit-product" element={<EditProducts />} />
 
             <Route path="/update/:id" element={<UpdateFood fetchCartFoodData={fetchCartFoodData} getCartTotal={getCartTotal} />} />
 
