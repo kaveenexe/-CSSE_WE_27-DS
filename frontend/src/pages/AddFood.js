@@ -1,17 +1,36 @@
 import axios from 'axios';
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import FormData from 'form-data';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from 'react-modal';
 
-import { useState, } from "react";
-
-
 
 const API_BASE = "http://localhost:9020";
 
 const AddFood = () => {
+
+
+    //get user details
+    const [userDetails, setUserDetails] = useState({});
+    const uid = localStorage.getItem("username");
+  
+    const loadUserData = async () => {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/api/get-user-details",
+        data: {
+          username: uid,
+        },
+      }).then((data) => {
+        console.log(data.data);
+        setUserDetails(data.data);
+      });
+    };
+  
+    useEffect(() => {
+      loadUserData();
+    }, []);
 
     const [newFood, setNewFood] = useState(
         {
@@ -22,7 +41,7 @@ const AddFood = () => {
             image:'',
             // showModal: false,
             // message: ''	
-
+            id: '',
         }
     );
 
@@ -43,6 +62,8 @@ const AddFood = () => {
         formData.append('description', newFood.description);
         formData.append('category', newFood.category);
         formData.append('image', newFood.image);
+        formData.append('userId', userDetails.id);
+        
 
         // if (
         //     newFood.name.trim() !== '' &&
@@ -99,7 +120,7 @@ const AddFood = () => {
     
     return (
         <section class="vh-100">
-
+            
 
             <div class="container-fluid h-custom h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100s h-100">
@@ -108,7 +129,7 @@ const AddFood = () => {
                         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
 
-                                
+                            <input type="hidden" name="userId" value={userDetails.id} />
                             <div class="form-outline">
                             <label class="form-label" for="form3Example3">Category</label>
                                 <Form.Select value={newFood.category} onChange={e=>newFood.category=e.target.value} aria-label="Default select example">
@@ -168,8 +189,8 @@ const AddFood = () => {
 
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                 <Button type = "submit">Submit</Button>
-
-                               
+                                
+                               <h1>{userDetails.id}</h1>
 
                                    
                                 </div>

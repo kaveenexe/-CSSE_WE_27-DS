@@ -42,6 +42,7 @@ router.post("/upload", upload.single("image"), async(req, res) => {
     const description = req.body.description;
     const category = req.body.category;
     const image = result.secure_url;
+    const userId = req.body.userId;
    
     //res.secure_url
 
@@ -50,8 +51,8 @@ router.post("/upload", upload.single("image"), async(req, res) => {
         price,
         description,
         category,
-        image
-       
+        image,
+        userId
     }
     
     const newFood = new Food(newFoodData);
@@ -86,6 +87,16 @@ router.get('/getImage/:id', async (req, res) => {
 router.get("/:category", async (req, res) => {
   try {
     const products = await Food.find({ category: req.params.category });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//Get product by user
+router.get("/user/:id", async (req, res) => {
+  try {
+    const products = await Food.find({ userId: req.params.id });
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });

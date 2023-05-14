@@ -16,6 +16,28 @@ router.get("/my-account", auth, roleCheck(["user"]) ,(req,res)=>{
 });
 
 
+//get all users
+router.route("/").get((req, res) => {
+    const user = User.find()
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+//get specific user
+router.route("/:id").get((req, res) => {
+    User.findById(req.params.id)
+        .then((user) => {
+        res.json(user);
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    }
+);
 
 router.get('/isAdmin/:id', async (req, res) => {
     const id = req.params.id;
