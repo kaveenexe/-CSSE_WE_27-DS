@@ -2,7 +2,7 @@ const router = require("express").Router();
 let User = require("../models/User");
 
 //Get all customers ({role: "customer"}) without ("-password") 
-router.route("/").get((req, res) => {
+router.route("/getAllCustomers").get((req, res) => {
   User.find({ role: "customer" })
     .select("-password")
     .then((User) => res.json(User))
@@ -10,7 +10,7 @@ router.route("/").get((req, res) => {
 });
 
 //Create new customer
-router.route("/add").post((req, res) => {
+router.route("/addCustomer").post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const phone = req.body.phone;
@@ -34,7 +34,7 @@ router.route("/add").post((req, res) => {
 } );
 
 //Remove an existing registered customer
-router.route("/remove/:id").delete((req, res) => {
+router.route("/removeCustomer/:id").delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then(() => res.json("Customer deleted successfully.."))
     .catch((err) => res.status(400).json("Error: " + err));
