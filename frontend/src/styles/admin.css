@@ -61,3 +61,94 @@ fs-4 {
   font-size: large;
 }
 
+.sales_status {
+  width: 405px;
+  border-radius: 8px;
+  padding: 1rem 1rem;
+  height: 285px;
+  font-weight: bold;
+  display: inline-block;
+  background-color: #ebecf1;
+}
+
+.sales_revenue_1 {
+  width: 360px;
+  padding-top: 15px;
+  font-family: 'Anuphan', sans-serif;
+}
+.sales_revenue_2 {
+  width: 360px;
+  padding-top: 5px;
+  font-family: 'Anuphan', sans-serif;
+}
+.sales_revenue_3 {
+  width: 360px;
+  padding-top: 5px;
+  font-family: 'Anuphan', sans-serif;
+}
+
+.fromLabel {
+  font-size: 15px;
+  font-weight: 450;
+}
+
+.btn {
+  background: #043f56;
+  color: aliceblue;
+  outline: #043f56;
+  margin-top: 8px;
+  width: 200px;
+  height: 50px;
+}
+
+.container {
+  margin-left: -10px;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 60vh;
+  overflow-x: auto;
+}
+
+.thead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table .thead-light{
+  white-space: nowrap;
+  background-color: #456a79;
+  min-height: 20vh;
+  color: #bfcedc;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
+}
+
+.thead-light tr th:nth-child(1){
+  min-width: 70px;
+}
+
+.thead-light tr th:nth-child(2){
+  min-width: 100px;
+}
+
+.thead-light tr th:nth-child(3){
+  min-width: 100px;
+}
+
+.table tbody tr:hover{
+  background: #b4c6ce;
+}
+
+.deleteIcon {
+  margin-left: 12px;
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: darkgray;
+}
+
+.editIcon {
+  transition: 0.21s ease-in-out;
+  cursor: pointer;
+  color: darkgray;
+}
