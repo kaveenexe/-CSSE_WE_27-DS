@@ -19,7 +19,7 @@ app.get("/", (req, res) => res.send("Server up and running"));
 app.use("/order", orderRoutes);
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8010;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

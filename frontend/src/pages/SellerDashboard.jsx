@@ -4,6 +4,12 @@ import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
 import NewProducts from "../components/SellerProduct/ProductForm";
 import ProductDetails from "../components/SellerProduct/ProductDetails";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Button } from "@mui/material";
+import Addfood from "./AddFood";
+
 
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -21,7 +27,7 @@ function CustomToggle({ children, eventKey }) {
   );
 }
 
-export default function CustomerDashboard() {
+export default function SellerDashboard() {
   return (
     <div>
       <Banner />
@@ -45,7 +51,9 @@ export default function CustomerDashboard() {
             <CustomToggle eventKey="1">ADD NEW PRODUCTS</CustomToggle>
           </Card.Header>
           <Accordion.Collapse eventKey="1">
-            <Card.Body>< NewProducts/></Card.Body>
+            <Card.Body>
+            <Addfood/>
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
 
@@ -54,7 +62,9 @@ export default function CustomerDashboard() {
             <CustomToggle eventKey="2">MY PRODUCTS</CustomToggle>
           </Card.Header>
           <Accordion.Collapse eventKey="2">
-            <Card.Body><ProductDetails/></Card.Body>
+            <Card.Body>
+              <ProductDetails />
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
 
@@ -70,3 +80,4 @@ export default function CustomerDashboard() {
     </div>
   );
 }
+

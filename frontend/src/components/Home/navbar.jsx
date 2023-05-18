@@ -8,14 +8,27 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Logo from "../../images/LOGO.png";
 
 function NavigationBar() {
+
   return (
     <>
       {["lg"].map((expand) => (
-        <Navbar key={expand} bg="light" expand={expand} className="mb-3" >
-          <Container fluid >
-            <Navbar.Brand href="../../home" style={{color: "#25D828", fontWeight: 600}}>
-              <img src={Logo} alt="Logo" style={{width: "3rem", marginRight: "0.6rem", marginBottom: "0.2rem"}}/>
-              HerbMart</Navbar.Brand>
+        <Navbar key={expand} bg="light" expand={expand} className="mb-0">
+          <Container fluid>
+            <Navbar.Brand
+              href="../../home"
+              style={{ color: "#25D828", fontWeight: 600 }}
+            >
+              <img
+                src={Logo}
+                alt="Logo"
+                style={{
+                  width: "3rem",
+                  marginRight: "0.6rem",
+                  marginBottom: "0.2rem",
+                }}
+              />
+              HerbMart
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -35,16 +48,14 @@ function NavigationBar() {
                     title="Catagories"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">
-                      Catagory 01
+                    <NavDropdown.Item href="/herbal-beauty-products">
+                      Herbal Beauty Products
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Catagory 02
+                    <NavDropdown.Item href="/herbal-hair-products">
+                      Herbal Hair Products
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Other
-                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/other">Other</NavDropdown.Item>
                   </NavDropdown>
                   <Nav.Link href="../../profile">Profile</Nav.Link>
                 </Nav>

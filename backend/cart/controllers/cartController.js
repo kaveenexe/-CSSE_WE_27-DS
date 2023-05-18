@@ -30,7 +30,28 @@ exports.getUserCartItems = async (req, res) => {
     res.json(cartItem);
 };
 
-exports.putIncreaseCartCount = async(req, res) => {
+
+exports.deleteUserCartItems = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+      await Cart.deleteMany({ userId: userId });
+      res.json("Deleted successfully");
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+
+
+  
+
+  exports.getCartItem = async (req, res) => {
+        const id = req.params.id;
+        const cartItems = await Cart.findById(id);  
+        res.json(cartItems)
+    }
+  
+
+exports.getUserCartCount = async (req, res) => {
 
     const id = req.params.id;
     
@@ -54,15 +75,7 @@ exports.putIncreaseCartCount = async(req, res) => {
 
 
 
-exports.putUpdateCartItem = (req, res) => {
-    Cart.findByIdAndUpdate(req.params.id, req.body)
-        .then((data) => res.json({ message: "updated successfully", data }))
-        .catch((err) =>
-            res
-                .status(400)
-                .json({ message: "Failed to update cart item", error: err.message })
-        );
-};
+
 
 exports.deleteCartItem = (req, res) => {
     Cart.findByIdAndRemove(req.params.id, req.body)
@@ -74,4 +87,49 @@ exports.deleteCartItem = (req, res) => {
                 .status(404)
                 .json({ message: "Cart item not found", error: err.message })
         );
+};
+
+exports.putUpdateCartItem = (req, res) => {
+  Cart.findByIdAndUpdate(req.params.id, req.body)
+      .then((data) => res.json({ message: "updated successfully", data }))
+      .catch((err) =>
+          res
+              .status(400)
+              .json({ message: "Failed to update cart item", error: err.message })
+      );
+};
+
+exports.getCartTotal = async(req, res) =>{
+    let sum = 0;
+    const id = req.params.id;
+    const cartItems = await Cart.find();
+    const cartItem = cartItems.filter(e => e.userId == id );
+    cartItem.forEach(e => {
+        sum += parseFloat(e.total)
+    })
+    res.json(sum);
+}
+
+exports.getCartCount = async(req, res) =>{
+  const id = req.params.id;
+  const cartItems = await Cart.find();
+  const cartItem = cartItems.filter(e => e.userId == id);
+  res.json(cartItem.length);
+}
+
+
+exports.putCartItem = async (req, res) => {
+  const id = req.params.id;
+  const quantity = req.body.quantity;
+
+  try {
+    const cart = await Cart.findByIdAndUpdate(id, {quantity:quantity})
+    if (!cart) {
+      return res.status(404).json({ error: "Cart or item not found" });
+    }
+    res.json(cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
 };

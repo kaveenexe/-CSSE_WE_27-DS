@@ -1,67 +1,89 @@
 import Banner from "../components/custdb_banner";
-import Accordion from "react-bootstrap/Accordion";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Form from "../components/CustomerSettings/form";
-
-function CustomToggle({ children, eventKey }) {
-  const decoratedOnClick = useAccordionButton(eventKey, () =>
-    console.log("totally custom!")
-  );
-
-  return (
-    <button
-      type="button"
-      style={{ textDecoration: "none", border: "none", background: "none" }}
-      onClick={decoratedOnClick}
-    >
-      {children}
-    </button>
-  );
-}
+import "../styles/customerDashboard.css";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function CustomerDashboard() {
   return (
     <div>
       <Banner />
-      <Accordion defaultActiveKey="0">
-        <Card>
-          <Card.Header>
-            <CustomToggle eventKey="0">DASHBOARD</CustomToggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
+      <div className="accordion">
+        {/* accordion 01 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>DASHBOARD</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
               Hello, Tom Cruise. (If Not Tom! Logout) From your account
               dashboard. you can easily check & view your recent orders, manage
               your shipping and billing addresses and edit your password and
               account details.
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-        <Card>
-          <Card.Header>
-            <CustomToggle eventKey="1">ORDERS</CustomToggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
-              <Button href="/tracking">
-                track
-              </Button>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+        {/* accordion 02 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>ORDERS</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-        <Card>
-          <Card.Header>
-            <CustomToggle eventKey="2">SETTINGS</CustomToggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body><Form /></Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
+        {/* accordion 04 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4a-content"
+            id="panel4a-header"
+          >
+            <Typography>SETTINGS</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* accordion 05 */}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel5a-content"
+            id="panel5a-header"
+          >
+            <Typography>LOGOUT</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </div>
   );
 }
