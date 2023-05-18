@@ -1,6 +1,6 @@
 FROM node:18.14.2
 
-WORKDIR /app/backend/order-backend
+WORKDIR /app/backend/seller-backend
 
 COPY package*.json ./
 
@@ -8,8 +8,8 @@ RUN npm install
 
 COPY . .
 
-ENV MONGODB_URL = mongodb+srv://maleeshaaa:maleesha2000@cluster0.jca3okn.mongodb.net/?retryWrites=true&w=majority
+ENV MONGODB_URL = mongodb+srv://ashanidewmini33:ashaniras123@clusterseller.qby6lu4.mongodb.net/seller_db?retryWrites=true&w=majority
 
-EXPOSE 8000
+EXPOSE 8003
 
 CMD ["npm", "start"]

@@ -6,9 +6,18 @@ const {
     getAllCartItems,
     getUserCartItems,
     postCreateCartItem,
-    putIncreaseCartCount,
+    
     putUpdateCartItem,
-    deleteCartItem
+    deleteCartItem,
+    getUserCartTotal,
+    getUserCartCount,
+    deleteUserCartItems,
+    getCartItem,
+    putCartItem,
+    getCartTotal,
+    getCartCount
+    
+
 } = require("../controllers/cartController");
 
 /**
@@ -17,6 +26,17 @@ const {
  * @access public
  */
 router.get("/", getAllCartItems);
+
+
+router.get("/getItem/:id", getCartItem)
+
+router.get("/user/getTotal/:id", getCartTotal)
+
+router.get("/users/:id", getCartCount)
+
+router.delete("/user/:userId", deleteUserCartItems)
+
+router.put("/update/:id", putCartItem)
 
 /**
  * @route POST api/todo
@@ -36,7 +56,7 @@ router.post("/", postCreateCartItem);
  */
 router.put("/:id", putUpdateCartItem);
 
-router.put("/increase/:id", putIncreaseCartCount);
+
 
 
 /**

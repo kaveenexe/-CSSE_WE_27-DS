@@ -7,7 +7,7 @@ const CartSchema = new mongoose.Schema({
         required: true,
     },
     foodId: {
-        type: Number,
+        type: String,
         required: true,
     },
     userId: {
@@ -29,6 +29,9 @@ const CartSchema = new mongoose.Schema({
     total: {
         type: Number,
         required: true,
+    },
+    image:{
+        type: String
     }
 });
 
