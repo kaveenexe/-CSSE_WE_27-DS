@@ -48,19 +48,19 @@ export const Dashboard = () => {
         {/* BOX 1 */}
         <StatBox
           title="Number of Sellers"
-          value="120"
+          value="1"
           icon={<Store sx={{ color: grey[400], fontSize: "37px" }} />}
         />
         {/* BOX 2 */}
         <StatBox
           title="Number of Customers"
-          value="250"
+          value="9"
           icon={<PeopleAlt sx={{ color: grey[400], fontSize: "37px" }} />}
         />
         {/* BOX 3 */}
         <StatBox
           title="Number of Orders"
-          value="1520"
+          value="4"
           icon={<ShoppingCart sx={{ color: grey[400], fontSize: "37px" }} />}
         />
       </Box>

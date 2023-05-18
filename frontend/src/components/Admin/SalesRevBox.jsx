@@ -14,21 +14,21 @@ export default function AlignItemsList() {
       <FlexBetween>
         <div className="sales_revenue_1">
           <h6>Number of Sales</h6>
-          <h3>1500</h3>
+          <h3>3</h3>
         </div>
         <TrendingUp sx={{ fontSize: "37px" }} />
       </FlexBetween>
       <FlexBetween>
         <div className="sales_revenue_2">
           <h6>Sales Revanue</h6>
-          <h3>Rs.150,000</h3>
+          <h3>Rs.16,520</h3>
         </div>
         <AttachMoneyRounded sx={{ fontSize: "37px" }} />
       </FlexBetween>
       <FlexBetween>
         <div className="sales_revenue_3">
           <h6>Product Sold</h6>
-          <h3>8175</h3>
+          <h3>14</h3>
         </div>
         <Inventory2Outlined sx={{ fontSize: "35px" }} />
       </FlexBetween>
