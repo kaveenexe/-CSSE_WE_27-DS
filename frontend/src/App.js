@@ -7,8 +7,12 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
+import MainLayout from "./components/Admin-MainLayout";
 import { Dashboard } from "./pages/Dashboard";
-import Customers from "./pages/Customers";
+import Customers from "./pages/Customers-Admin";
+import Sellers from "./pages/Sellers-Admin"
+import Orders from "./pages/Orders-Admin"
+import Settings from "./pages/Settings-Admin"
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
@@ -32,8 +36,6 @@ import Catagory3 from "./pages/Catagories/Other";
 
 import Sellerdash from "./pages/SellerDashboard";
 import EditProducts from "./components/SellerProduct/EditProducts";
-
-
 
 function App() {
   const [status, setStatus] = useState(false);
@@ -241,7 +243,11 @@ function App() {
             <Route
               path="/payment"
               element={
-                <Payment setCartTotal={setCartTotal} cartTotal={cartTotal} cartFoodData={cartFoodData} />
+                <Payment
+                  setCartTotal={setCartTotal}
+                  cartTotal={cartTotal}
+                  cartFoodData={cartFoodData}
+                />
               }
             />
 
@@ -279,19 +285,32 @@ function App() {
 
             <Route
               path="/seller-profile"
-              element={
-
-                <Sellerdash isCustomer={isSeller} />
-
-              }
+              element={<Sellerdash isCustomer={isSeller} />}
             />
 
             <Route path="/edit-product" element={<EditProducts />} />
 
-            <Route path="/update/:id" element={<UpdateFood fetchCartFoodData={fetchCartFoodData} getCartTotal={getCartTotal} />} />
+            <Route
+              path="/update/:id"
+              element={
+                <UpdateFood
+                  fetchCartFoodData={fetchCartFoodData}
+                  getCartTotal={getCartTotal}
+                />
+              }
+            />
 
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/vendors" element={<Sellers />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/orders" element={<Orders />} />
+            </Route>
           </Routes>
         </div>
       </BrowserRouter>
