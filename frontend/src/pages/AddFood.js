@@ -190,7 +190,7 @@ const AddFood = () => {
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                 <Button type = "submit">Submit</Button>
                                 
-                               <h1>{userDetails.id}</h1>
+                               {/* <h1>{userDetails.id}</h1> */}
 
                                    
                                 </div>
