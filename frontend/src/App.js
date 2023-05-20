@@ -27,7 +27,7 @@ import Navbar from "./Navbar";
 import SingleFood from "./pages/SingleFood";
 import Swal from "sweetalert2";
 import Cart from "./pages/Cart";
-import UpdateFood from "./pages/UpdateFood";
+import UpdateFood from "./pages/UpdateProduct";
 import Payment from "./pages/Payment";
 
 import Catagory1 from "./pages/Catagories/HerbalBeautyProducts";
@@ -243,11 +243,15 @@ function App() {
             <Route
               path="/payment"
               element={
+<<<<<<< Updated upstream
                 <Payment
                   setCartTotal={setCartTotal}
                   cartTotal={cartTotal}
                   cartFoodData={cartFoodData}
                 />
+=======
+                <Payment setCartTotal={setCartTotal} cartTotal={cartTotal} cartFoodData={cartFoodData} fetchCartFoodData={fetchCartFoodData}/>
+>>>>>>> Stashed changes
               }
             />
 

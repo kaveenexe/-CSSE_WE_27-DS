@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 const API_BASE = "http://localhost:8080";
 
 
-const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
+const UpdateProduct = ({fetchCartFoodData, getCartTotal}) => {
     let { id } = useParams();
     const baseURL = `http://localhost:8080/api/${id}`;
     const [loading, setLoading] = useState(true);
@@ -123,4 +123,4 @@ const UpdateFood = ({fetchCartFoodData, getCartTotal}) => {
     )
 }
 
-export default UpdateFood
+export default UpdateProduct
